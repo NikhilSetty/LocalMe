@@ -162,7 +162,6 @@ public class SplashActivity extends Activity implements LocationListener {
                 try {
                     UserModel currentUser = UserModelDBHandler.ReturnValue(getApplicationContext());
                     TempDataClass.serverUserId = currentUser.ServerUserId;
-                    TempDataClass.userProfession = currentUser.Profession;
                     TempDataClass.userName = currentUser.FirstName + " " + currentUser.LastName;
                     TempDataClass.emailId = currentUser.EmailId;
                 } catch (Exception ex) {

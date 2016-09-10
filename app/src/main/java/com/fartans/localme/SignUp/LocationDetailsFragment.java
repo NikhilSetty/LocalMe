@@ -309,7 +309,6 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
                     Toast.makeText(getActivity().getApplicationContext(), result, Toast.LENGTH_SHORT).show();
 
                     TempDataClass.userName = NewSignUpActicity.userModel.FirstName + NewSignUpActicity.userModel.LastName;
-                    TempDataClass.userProfession = NewSignUpActicity.userModel.Profession;
                     TempDataClass.serverUserId = result;
 
                     NewSignUpActicity.userModel.ServerUserId = result;
@@ -366,7 +365,6 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("UserName", NewSignUpActicity.userModel.FirstName + " " + NewSignUpActicity.userModel.LastName);
             jsonObject.put("PhoneNumber", NewSignUpActicity.userModel.PhoneNumber);
-            jsonObject.put("Profession", NewSignUpActicity.userModel.Profession);
             jsonObject.put("EmailId", NewSignUpActicity.userModel.EmailId);
             jsonObject.put("Password", NewSignUpActicity.userModel.password);
             jsonObject.put("Address", _editTextAddress1);

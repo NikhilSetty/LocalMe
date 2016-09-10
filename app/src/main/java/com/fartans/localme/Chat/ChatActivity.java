@@ -97,7 +97,7 @@ public class ChatActivity extends ActionBarActivity {
                 UserModelDBHandler.ReturnValue(getApplicationContext());
         TempDataClass.userName = user.FirstName + " " + user.LastName;
         TempDataClass.serverUserId = user.ServerUserId;
-        TempDataClass.userProfession = user.Profession;
+        // TempDataClass.userProfession = user.Profession;
         TempDataClass.emailId = user.EmailId;
 
         chatMessages = (ListView) findViewById(R.id.list);

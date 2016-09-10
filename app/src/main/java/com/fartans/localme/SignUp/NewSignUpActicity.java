@@ -181,7 +181,6 @@ public class NewSignUpActicity extends ActionBarActivity {
             NewSignUpActicity.userModel.FirstName = _editTextFirstName;
             NewSignUpActicity.userModel.LastName = _editTextLastName;
             NewSignUpActicity.userModel.PhoneNumber = _editTextPhoneNumber;
-            NewSignUpActicity.userModel.Profession = _editTextProfession;
 
             final Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.containerFrame);
 

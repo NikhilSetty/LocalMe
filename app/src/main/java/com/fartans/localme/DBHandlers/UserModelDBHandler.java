@@ -27,11 +27,12 @@ public class UserModelDBHandler {
             contentValues.put(DbTableStrings.LNAME,userModel.LastName);
             contentValues.put(DbTableStrings.PHONENUMBER,userModel.PhoneNumber);
             contentValues.put(DbTableStrings.EMAILID,userModel.EmailId);
-            contentValues.put(DbTableStrings.PROFESSION,userModel.Profession);
+            // contentValues.put(DbTableStrings.PROFESSION,userModel.Profession);
             contentValues.put(DbTableStrings.ADDRESS1,userModel.Address1);
             contentValues.put(DbTableStrings.PINCODE1,userModel.PinCode1);
-            contentValues.put(DbTableStrings.ADDRESS2,userModel.Address2);
-            contentValues.put(DbTableStrings.PINCODE2,userModel.PinCode2);
+            // contentValues.put(DbTableStrings.ADDRESS2,userModel.Address2);
+            // contentValues.put(DbTableStrings.PINCODE2,userModel.PinCode2);
+            // contentValues.put(DbTableStrings.,userModel.PinCode2);
 
             dbHelper = new DbHelper(context);
             db = dbHelper.getWritableDatabase();
@@ -81,11 +82,11 @@ public class UserModelDBHandler {
                 userModel.LastName = c.getString(c.getColumnIndex(DbTableStrings.LNAME));
                 userModel.PhoneNumber = c.getString(c.getColumnIndex(DbTableStrings.PHONENUMBER));
                 userModel.EmailId = c.getString(c.getColumnIndex(DbTableStrings.EMAILID));
-                userModel.Profession = c.getString(c.getColumnIndex(DbTableStrings.PROFESSION));
+                // userModel.Profession = c.getString(c.getColumnIndex(DbTableStrings.PROFESSION));
                 userModel.Address1 = c.getString(c.getColumnIndex(DbTableStrings.ADDRESS1));
                 userModel.PinCode1 = c.getString(c.getColumnIndex(DbTableStrings.PINCODE1));
-                userModel.Address2 = c.getString(c.getColumnIndex(DbTableStrings.ADDRESS2));
-                userModel.PinCode2 = c.getString(c.getColumnIndex(DbTableStrings.PINCODE2));
+                // userModel.Address2 = c.getString(c.getColumnIndex(DbTableStrings.ADDRESS2));
+                // userModel.PinCode2 = c.getString(c.getColumnIndex(DbTableStrings.PINCODE2));
 
                 return  userModel;
             }

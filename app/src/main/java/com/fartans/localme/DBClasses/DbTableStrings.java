@@ -8,8 +8,8 @@ public class DbTableStrings {
     public static final String PHONENUMBER = "phonenumber";
     public static final String EMAILID = "emailid";
     public static final String SERVERUSERID = "serveruserid";
-    public static final String ADDRESS1 = "address1";
-    public static final String PINCODE1 = "pincode1";
+    public static final String ADDRESS1 = "address";
+    public static final String PINCODE1 = "pincode";
     public static final String PROFESSION = "profession";
     public static final String ADDRESS2 = "address2";
     public static final String PINCODE2 = "pincode2";

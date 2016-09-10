@@ -66,7 +66,6 @@ public class MainActivity extends ActionBarActivity
         UserModel user = UserModelDBHandler.ReturnValue(getApplicationContext());
         TempDataClass.userName = user.FirstName + " " + user.LastName;
         TempDataClass.serverUserId = user.ServerUserId;
-        TempDataClass.userProfession = user.Profession;
         TempDataClass.emailId = user.EmailId;
 
         setContentView(R.layout.activity_main);
