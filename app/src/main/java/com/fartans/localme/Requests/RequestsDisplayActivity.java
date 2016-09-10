@@ -4,9 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -28,6 +34,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.fartans.localme.Base64;
 import com.fartans.localme.CommonMethods;
 import com.fartans.localme.DBHandlers.RequestsDBHandler;
 import com.fartans.localme.FragmentTitles;
@@ -40,6 +47,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -89,6 +97,11 @@ public class RequestsDisplayActivity extends Fragment {
     public int lastviewposition;
     public int listCurrentPosition;
 
+
+    private static int RESULT_LOAD_IMAGE = 2;
+
+    public static String RequestImagePath = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         activity = (FragmentActivity) super.getActivity();
@@ -130,7 +143,8 @@ public class RequestsDisplayActivity extends Fragment {
             showProgress(true,getString(R.string.loading_requests));
 
 
-            if(new CommonMethods().hasActiveInternetConnection(activity)){
+            // if(new CommonMethods().hasActiveInternetConnection(activity)){
+            if(true){
                 HttpGetter getter = new HttpGetter();
                 getter.execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=0");
             }
@@ -202,6 +216,7 @@ public class RequestsDisplayActivity extends Fragment {
                     i.putString("RequestUserProfession", requestsArray[position].RequestUserProfession);
                     i.putString("RequestUserProfilePhotoServerPath", requestsArray[position].RequestUserProfilePhotoServerPath);
                     i.putString("RequestTime", requestsArray[position].RequestTime);
+                    i.putString("RequestImage", requestsArray[position].ImagePath);
 
                     Fragment individualRequestDisplayFragment = new RequestDisplayActivity();
                     individualRequestDisplayFragment.setArguments(i);
@@ -246,6 +261,7 @@ public class RequestsDisplayActivity extends Fragment {
                 request.RequestTime = temp.getString("RequestedTime") != null ? temp.getString("RequestedTime"): null;
                 request.RequestUserProfession = temp.getString("RequestUserProfession") != null ? temp.getString("RequestUserProfession"): null;
                 request.RequestUserProfilePhotoServerPath = temp.getString("RequestUserProfilePhotoServerPath") != null ? temp.getString("RequestUserProfilePhotoServerPath"): null;
+                request.ImagePath = temp.getString("RequestImageUrl") != null ? temp.getString("RequestImageUrl"): null;
 
                 list.add(request);
 
@@ -290,6 +306,7 @@ public class RequestsDisplayActivity extends Fragment {
     }
 
     public void GenerateNewRequest() {
+        RequestImagePath = "";
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.alert_prompt_new_request, null);
 
@@ -305,6 +322,19 @@ public class RequestsDisplayActivity extends Fragment {
         //spinner1.setAdapter(mAdapter);
 
         final Switch locationSwicth = (Switch) promptsView.findViewById(R.id.switch1);
+
+        final Button buttonUploadImage = (Button) promptsView.findViewById(R.id.buttonUploadImage);
+
+        buttonUploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, 2);
+            }
+        });
 
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptsView);
@@ -358,6 +388,15 @@ public class RequestsDisplayActivity extends Fragment {
             jsonObject.put("UserId", TempDataClass.serverUserId);
             newRequest.RequesteUserId = TempDataClass.serverUserId;
             //TODO
+            if(!RequestImagePath.equals("")) {
+                Bitmap bitmap = BitmapFactory.decodeFile(RequestImagePath);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream); //compress to which format you want.
+                final byte [] byte_arr = stream.toByteArray();
+                final String image_str = Base64.encodeBytes(byte_arr);
+                jsonObject.put("ImageArray", image_str);
+            }
+
             jsonObject.put("RequestMessage", newRequestString);
             newRequest.RequestString = newRequestString;
             if(isCurrentLocation){
@@ -413,6 +452,30 @@ public class RequestsDisplayActivity extends Fragment {
         return result;
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == -1 && null != data) {
+            Uri SelectedImage = data.getData();
+            String[] FilePathColumn = {MediaStore.Images.Media.DATA };
+
+            Cursor SelectedCursor = getActivity().getContentResolver().query(SelectedImage, FilePathColumn, null, null, null);
+            SelectedCursor.moveToFirst();
+
+            int columnIndex = SelectedCursor.getColumnIndex(FilePathColumn[0]);
+            String picturePath = SelectedCursor.getString(columnIndex);
+            RequestImagePath = picturePath;
+            SelectedCursor.close();
+
+            // image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            //CommonMethods.scaleImage(getActivity().getApplicationContext(), image, 100);
+            //Toast.makeText(getApplicationContext(), picturePath, Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
     private class HttpAsyncTaskPOST extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... urls) {
@@ -425,6 +488,7 @@ public class RequestsDisplayActivity extends Fragment {
             newRequest.RequesteUserId = TempDataClass.serverUserId;
             newRequest.RequestUserName = TempDataClass.userName;
             newRequest.RequestUserProfession = TempDataClass.userProfession;
+            newRequest.ImagePath = RequestImagePath;
             RequestsDBHandler.InsertRequests(getActivity().getApplicationContext(), newRequest);
             Toast.makeText(getActivity().getApplicationContext(), "Request Generated Successfully!", Toast.LENGTH_LONG).show();
             showProgress(false,null);
@@ -631,6 +695,7 @@ public class RequestsDisplayActivity extends Fragment {
                     i.putString("RequestUserProfession", requestsArray[position].RequestUserProfession);
                     i.putString("RequestUserProfilePhotoServerPath", requestsArray[position].RequestUserProfilePhotoServerPath);
                     i.putString("RequestTime", requestsArray[position].RequestTime);
+                    i.putString("RequestImage", requestsArray[position].ImagePath);
 
                     Fragment individualRequestDisplayFragment = new RequestDisplayActivity();
                     individualRequestDisplayFragment.setArguments(i);

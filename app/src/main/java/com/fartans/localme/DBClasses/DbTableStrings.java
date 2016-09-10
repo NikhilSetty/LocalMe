@@ -25,6 +25,7 @@ public class DbTableStrings {
     public static final String REQUEST_TIME = "request_time";
     public static final String REQUEST_YEAR = "request_year";
     public static final String REQUEST_DAY_OF_THE_YEAR = "request_day_of_the_year";
+    public static final String REQUEST_IMAGE_PATH = "request_image_path";
 
     public static final String TABLE_NAME_MY_QUESTIONS= "my_questions";
 

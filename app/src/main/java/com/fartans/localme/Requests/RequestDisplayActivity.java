@@ -64,8 +64,11 @@ public class RequestDisplayActivity extends Fragment {
     private TextView requestTime;
     private TextView requestUserProfession;
     private ImageView profilePhoto;
+    private ImageView requestImage;
 
     private ProgressDialog progressDialog;
+
+    FragmentActivity activity;
 
     @Override
     public void onAttach(Activity activity) {
@@ -75,7 +78,7 @@ public class RequestDisplayActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FragmentActivity activity = (FragmentActivity) super.getActivity();
+        activity = (FragmentActivity) super.getActivity();
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.activity_request_display, container, false);
 
         progressDialog = new ProgressDialog(getActivity());
@@ -92,6 +95,7 @@ public class RequestDisplayActivity extends Fragment {
         requestUserProfession = (TextView) layout.findViewById(R.id.textViewRequestUserProfession);
 
         profilePhoto = (ImageView) layout.findViewById(R.id.imageViewProfilePhoto);
+        requestImage = (ImageView) layout.findViewById(R.id.imageViewRequestDisplayRequestImage);
 
         try {
             Bundle args = getArguments();
@@ -109,6 +113,7 @@ public class RequestDisplayActivity extends Fragment {
             currentRequest.RequestUserProfession = args.getString("RequestUserProfession");
             currentRequest.RequestUserProfilePhotoServerPath= args.getString("RequestUserProfilePhotoServerPath");
             currentRequest.RequestTime = args.getString("RequestTime");
+            currentRequest.ImagePath = args.getString("RequestImage");
 
             requestUserName.setText(currentRequest.RequestUserName);
             requestString.setText(currentRequest.RequestString);
@@ -117,6 +122,9 @@ public class RequestDisplayActivity extends Fragment {
 
             if(!currentRequest.RequestUserProfilePhotoServerPath.isEmpty() && currentRequest.RequestUserProfilePhotoServerPath != null){
                 Picasso.with(activity.getApplicationContext()).load(currentRequest.RequestUserProfilePhotoServerPath).into(profilePhoto);
+            }
+            if(!currentRequest.ImagePath.isEmpty() && currentRequest.ImagePath!= null){
+                Picasso.with(activity.getApplicationContext()).load(currentRequest.ImagePath).into(requestImage);
             }
         }
         else{
@@ -182,6 +190,13 @@ public class RequestDisplayActivity extends Fragment {
                 requestString.setText(currentRequest.RequestString);
                 requestTime.setText(currentRequest.RequestTime);
                 requestUserProfession.setText(currentRequest.RequestUserProfession);
+
+                if(!currentRequest.RequestUserProfilePhotoServerPath.isEmpty() && currentRequest.RequestUserProfilePhotoServerPath != null){
+                    Picasso.with(activity.getApplicationContext()).load(currentRequest.RequestUserProfilePhotoServerPath).into(profilePhoto);
+                }
+                if(!currentRequest.ImagePath.isEmpty() && currentRequest.ImagePath!= null){
+                    Picasso.with(activity.getApplicationContext()).load(currentRequest.ImagePath).into(requestImage);
+                }
             }
             progressDialog.dismiss();
         }
@@ -201,6 +216,7 @@ public class RequestDisplayActivity extends Fragment {
             request.RequestTime = currentJsonObject.getString("RequestedTime") != null ? currentJsonObject.getString("RequestedTime"): null;
             request.RequestUserProfession = currentJsonObject.getString("RequestUserProfession") != null ? currentJsonObject.getString("RequestUserProfession"): null;
             request.RequestUserProfilePhotoServerPath = currentJsonObject.getString("RequestUserProfilePhotoServerPath") != null ? currentJsonObject.getString("RequestUserProfilePhotoServerPath"): null;
+            request.ImagePath = currentJsonObject.getString("RequestImageUrl") != null ? currentJsonObject.getString("RequestImageUrl"): null;
 
             return request;
         }
