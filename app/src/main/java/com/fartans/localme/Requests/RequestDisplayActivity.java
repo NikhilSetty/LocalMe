@@ -22,24 +22,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.FragmentTitles;
+import com.fartans.localme.MainActivity;
+import com.fartans.localme.R;
+import com.fartans.localme.TempDataClass;
+import com.fartans.localme.models.Requests;
+import com.fartans.localme.models.UserModel;
 import com.squareup.picasso.Picasso;
-import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
-import com.teachmate.teachmate.FragmentTitles;
-import com.teachmate.teachmate.MainActivity;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.Requests;
-import com.teachmate.teachmate.models.UserModel;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -48,6 +38,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.StatusLine;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 
 public class RequestDisplayActivity extends Fragment {
@@ -125,7 +125,7 @@ public class RequestDisplayActivity extends Fragment {
             UserModel cUser = UserModelDBHandler.ReturnValue(getActivity().getApplicationContext());
             TempDataClass.serverUserId = cUser.ServerUserId;
             HttpGetter getter = new HttpGetter();
-            getter.execute("http://teach-mate.azurewebsites.net/Request/GetRequestDetails?id=" + notificationRequestId);
+            getter.execute(TempDataClass.BASE_URL + "Request/GetRequestDetails?id=" + notificationRequestId);
             //TODO
         }
 
@@ -245,7 +245,7 @@ public class RequestDisplayActivity extends Fragment {
                         else{
                             responseMessageString = responseEditText.getText().toString();
                             HttpAsyncTask post = new HttpAsyncTask();
-                            post.execute("http://teach-mate.azurewebsites.net/Response/SendResponseNotification");
+                            post.execute(TempDataClass.BASE_URL + "Response/SendResponseNotification");
                             progressDialog.setMessage("Generating Response...");
                             progressDialog.show();
                         }

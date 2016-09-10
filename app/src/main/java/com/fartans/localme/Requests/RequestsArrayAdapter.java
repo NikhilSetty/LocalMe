@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.fartans.localme.R;
 import com.fartans.localme.models.Requests;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by NiRavishankar on 12/15/2014.

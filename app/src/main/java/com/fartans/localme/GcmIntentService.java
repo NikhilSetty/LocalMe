@@ -34,6 +34,7 @@ import com.fartans.localme.DBHandlers.ChatIdMapDBHandler;
 import com.fartans.localme.DBHandlers.ChatInfoDBHandler;
 import com.fartans.localme.models.ChatIdMap;
 import com.fartans.localme.models.ChatInfo;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

@@ -30,6 +30,16 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.StatusLine;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+
 public class LoginActivity extends Activity {
 
     EditText editTextEmailId;
@@ -95,7 +105,7 @@ public class LoginActivity extends Activity {
         }
 
         HttpAuthenticateUser authenticateUser = new HttpAuthenticateUser();
-        authenticateUser.execute("http://teach-mate.azurewebsites.net/User/CheckUser");
+        authenticateUser.execute(TempDataClass.BASE_URL + "User/CheckUser");
 
     }
 
@@ -149,11 +159,11 @@ public class LoginActivity extends Activity {
             convertJsonToObject(result);
 
             HttpGetAllGeneratedRequests requests = new HttpGetAllGeneratedRequests();
-            requests.execute("http://teach-mate.azurewebsites.net/Request/GetRequestsByUser?id=" + TempDataClass.serverUserId);
+            requests.execute(TempDataClass.BASE_URL + "Request/GetRequestsByUser?id=" + TempDataClass.serverUserId);
 
             if(!TempDataClass.deviceRegId.equals(serverRegId)){
                 HttpPostRegIdToServer regIdPost = new HttpPostRegIdToServer();
-                regIdPost.execute("http://teach-mate.azurewebsites.net/User/UpdateRegId");
+                regIdPost.execute(TempDataClass.BASE_URL + "User/UpdateRegId");
             }
             else if(TempDataClass.deviceRegId.equals(serverRegId)){
                 progressDialog.dismiss();

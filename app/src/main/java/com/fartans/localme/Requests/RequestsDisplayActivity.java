@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.fartans.localme.CommonMethods;
 import com.fartans.localme.DBHandlers.RequestsDBHandler;
 import com.fartans.localme.FragmentTitles;
+import com.fartans.localme.MainActivity;
 import com.fartans.localme.R;
 import com.fartans.localme.TempDataClass;
 import com.fartans.localme.models.Requests;
@@ -49,6 +50,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.StatusLine;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 
 public class RequestsDisplayActivity extends Fragment {
@@ -105,7 +115,7 @@ public class RequestsDisplayActivity extends Fragment {
                 try {
                     lastRequestId = resumeList.get(listViewRequests.getCount() - 2).RequestID;
 
-                    new loadmorelistview().execute("http://teach-mate.azurewebsites.net/Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=" + lastRequestId);
+                    new loadmorelistview().execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=" + lastRequestId);
                 }catch(Exception ex){
                     progressDialog.dismiss();
                     //Log.e("Request", ex.getMessage());
@@ -129,7 +139,7 @@ public class RequestsDisplayActivity extends Fragment {
 
             if(new CommonMethods().hasActiveInternetConnection(activity)){
                 HttpGetter getter = new HttpGetter();
-                getter.execute("http://teach-mate.azurewebsites.net/Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=0");
+                getter.execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=0");
             }
             else{
                 progressDialog.dismiss();
@@ -326,7 +336,7 @@ public class RequestsDisplayActivity extends Fragment {
                             progressDialog.setMessage("Generating Request...");
                             progressDialog.show();
                             HttpAsyncTaskPOST newPost = new HttpAsyncTaskPOST();
-                            newPost.execute("http://teach-mate.azurewebsites.net/Request/SendRequestNotification");
+                            newPost.execute(TempDataClass.BASE_URL + "Request/SendRequestNotification");
                         }
                     }
                 });

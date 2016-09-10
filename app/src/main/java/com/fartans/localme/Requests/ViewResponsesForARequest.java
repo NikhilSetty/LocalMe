@@ -39,6 +39,14 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.StatusLine;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+
 
 public class ViewResponsesForARequest extends Fragment {
 
@@ -97,7 +105,7 @@ public class ViewResponsesForARequest extends Fragment {
         requestTime.setText(currentRequest.RequestTime);
 
         HttpGetter getter = new HttpGetter();
-        getter.execute("http://teach-mate.azurewebsites.net/Response/GetAllResponsesForARequest?id="+ currentRequest.RequestID+"&lastResponseId=0");
+        getter.execute(TempDataClass.BASE_URL + "Response/GetAllResponsesForARequest?id="+ currentRequest.RequestID+"&lastResponseId=0");
 
         return layout;
     }

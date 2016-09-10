@@ -28,9 +28,13 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fartans.localme.DBHandlers.QuestionModelDBHandler;
+import com.fartans.localme.DBHandlers.RequestsDBHandler;
+import com.fartans.localme.Requests.MyRequests;
 import com.fartans.localme.models.CategoryList;
 import com.fartans.localme.models.Question_Model;
 import com.fartans.localme.models.Requests;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +47,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class HomeFragment extends Fragment {
     ArrayList<String> myquestionids = new ArrayList<String>();
@@ -156,7 +166,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getActivity(), "The above fields cannot be empty.Please fill both the fields and retry", Toast.LENGTH_LONG).show();
                     } else {
                         ask_question_async ask = new ask_question_async();
-                        ask.execute("http://teach-mate.azurewebsites.net/QuestionForum/AddQuestion");
+                        ask.execute(TempDataClass.BASE_URL + "QuestionForum/AddQuestion");
                         alertDialog.dismiss();
 
                     }
@@ -248,7 +258,7 @@ public class HomeFragment extends Fragment {
                             }
                             progressDialog.show();
                             HttpAsyncTaskPOST newPost = new HttpAsyncTaskPOST();
-                            newPost.execute("http://teach-mate.azurewebsites.net/Request/SendRequestNotification");
+                            newPost.execute(TempDataClass.BASE_URL + "Request/SendRequestNotification");
                         }
                     }
                 });
