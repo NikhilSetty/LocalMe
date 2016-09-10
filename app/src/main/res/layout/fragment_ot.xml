@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="#ff026b6c"
+    tools:context="com.teachmate.teachmate.SignUp.NewSignUpActicity.UserDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout2"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="127dp"
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/editTextOTPCode"
+            android:layout_width="match_parent"
+            android:background="@drawable/rounded_edit_text"
+            android:padding="5dp"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="Registration Code"
+            android:inputType="number" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="A Registration code has been sent to your email ID. Please enter the code here."
+        android:id="@+id/textView12"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:textColor="#ff454545"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:padding="5dp"
+        android:layout_alignEnd="@+id/linearLayout2"
+        android:gravity="center"
+        android:background="@drawable/border_text" />
+</RelativeLayout>
