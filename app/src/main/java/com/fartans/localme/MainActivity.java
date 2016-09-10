@@ -71,6 +71,7 @@ public class MainActivity extends ActionBarActivity
         TempDataClass.emailId = user.EmailId;
 
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
 
         String profilePhotoPath = DeviceInfoDBHandler.GetValueForKey(getApplicationContext(), DeviceInfoKeys.PROFILE_PHOTO_LOCAL_PATH);
         if(profilePhotoPath != null && !profilePhotoPath.isEmpty()) {
@@ -245,6 +246,8 @@ public class MainActivity extends ActionBarActivity
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);
+
     }
 
 
@@ -258,6 +261,7 @@ public class MainActivity extends ActionBarActivity
             restoreActionBar();
             return true;
         }
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.arrow_back);
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -65,10 +65,10 @@ public class NsMenuAdapter extends ArrayAdapter<NsItemModel> {
             image1.setImageResource(R.drawable.question);
         }
         if(item.title.equals("Requests")){
-            image1.setImageResource(R.drawable.requests);
+            image1.setImageResource(R.drawable.megaphone);
         }
         if(item.title.equals("My Questions")){
-            image1.setImageResource(R.drawable.my_questions);
+            image1.setImageResource(R.drawable.my_requests);
         }
         if(item.title.equals("My Requests")){
             image1.setImageResource(R.drawable.my_requests);
