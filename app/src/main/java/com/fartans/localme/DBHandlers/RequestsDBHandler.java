@@ -35,6 +35,7 @@ public class RequestsDBHandler {
             contentValues.put(DbTableStrings.REQUEST_TIME,requests.RequestTime);
             contentValues.put(DbTableStrings.REQUEST_DAY_OF_THE_YEAR,requests.requestDayOfTheYear);
             contentValues.put(DbTableStrings.REQUEST_YEAR,requests.requestYear);
+            contentValues.put(DbTableStrings.REQUEST_IMAGE_PATH, requests.ImagePath);
 
             dbHelper = new DbHelper((context.getApplicationContext()));
             db = dbHelper.getWritableDatabase();

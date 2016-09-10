@@ -3,8 +3,14 @@ package com.fartans.localme.ui.fragments;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,11 +23,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.fartans.localme.Base64;
 import com.fartans.localme.DBHandlers.RequestsDBHandler;
 import com.fartans.localme.HomeFragment;
 import com.fartans.localme.R;
@@ -33,6 +41,7 @@ import com.fartans.localme.models.Requests;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -65,6 +74,10 @@ public class MainTabHosts extends Fragment {
     private boolean isCurrentLocation;
 
     private String newRequestString;
+    private static int RESULT_LOAD_IMAGE = 2;
+
+    public static String RequestImagePath = "";
+
 
     /**
      * Create a new MainTabHosts fragment.
@@ -126,6 +139,7 @@ public class MainTabHosts extends Fragment {
     public void GenerateNewRequest() {
         LayoutInflater li = LayoutInflater.from(getActivity());
         View promptsView = li.inflate(R.layout.alert_prompt_new_request, null);
+        RequestImagePath = "";
 
         ArrayList<String> array = new ArrayList<String>();
         array.add("Registered Locations");
@@ -139,6 +153,19 @@ public class MainTabHosts extends Fragment {
         //spinner1.setAdapter(mAdapter);
 
         final Switch locationSwicth = (Switch) promptsView.findViewById(R.id.switch1);
+
+        final Button buttonUploadImage = (Button) promptsView.findViewById(R.id.buttonUploadImage);
+
+        buttonUploadImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, 2);
+            }
+        });
 
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptsView);
@@ -207,9 +234,34 @@ public class MainTabHosts extends Fragment {
             newRequest.RequesteUserId = TempDataClass.serverUserId;
             newRequest.RequestUserName = TempDataClass.userName;
             newRequest.RequestUserProfession = TempDataClass.userProfession;
+            newRequest.ImagePath = RequestImagePath;
             RequestsDBHandler.InsertRequests(getActivity().getApplicationContext(), newRequest);
             Toast.makeText(getActivity().getApplicationContext(), "Request Generated Successfully!", Toast.LENGTH_LONG).show();
             showProgress(false,null);
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_LOAD_IMAGE && resultCode == -1 && null != data) {
+            Uri SelectedImage = data.getData();
+            String[] FilePathColumn = {MediaStore.Images.Media.DATA };
+
+            Cursor SelectedCursor = getActivity().getContentResolver().query(SelectedImage, FilePathColumn, null, null, null);
+            SelectedCursor.moveToFirst();
+
+            int columnIndex = SelectedCursor.getColumnIndex(FilePathColumn[0]);
+            String picturePath = SelectedCursor.getString(columnIndex);
+            RequestImagePath = picturePath;
+            SelectedCursor.close();
+
+            // image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            //CommonMethods.scaleImage(getActivity().getApplicationContext(), image, 100);
+            //Toast.makeText(getApplicationContext(), picturePath, Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -225,6 +277,14 @@ public class MainTabHosts extends Fragment {
             jsonObject.put("UserId", TempDataClass.serverUserId);
             newRequest.RequesteUserId = TempDataClass.serverUserId;
             //TODO
+            if(!RequestImagePath.equals("")) {
+                Bitmap bitmap = BitmapFactory.decodeFile(RequestImagePath);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 90, stream); //compress to which format you want.
+                final byte [] byte_arr = stream.toByteArray();
+                final String image_str = Base64.encodeBytes(byte_arr);
+                jsonObject.put("ImageArray", image_str);
+            }
             jsonObject.put("RequestMessage", newRequestString);
             newRequest.RequestString = newRequestString;
             if(isCurrentLocation){

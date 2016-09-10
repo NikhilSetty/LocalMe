@@ -12,6 +12,7 @@ public class Requests {
     public String RequestUserProfession;
     public String RequestUserProfilePhotoServerPath = "";
     public String RequestTime;
+    public String ImagePath;
 
     public int requestYear;
     public int requestDayOfTheYear;

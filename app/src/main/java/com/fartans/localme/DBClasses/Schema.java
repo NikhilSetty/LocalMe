@@ -22,6 +22,7 @@ public class Schema {
             + DbTableStrings.REQUEST_STRING + " string, "
             + DbTableStrings.REQUEST_TIME + " string, "
             + DbTableStrings.REQUEST_USER_PROFESSION + " string, "
+            + DbTableStrings.REQUEST_IMAGE_PATH + " string, "
             + DbTableStrings.REQUEST_USER_PROFILE_PHOTO_SERVER_PATH + " string, "
             + DbTableStrings.REQUEST_YEAR + " int, "
             + DbTableStrings.REQUEST_DAY_OF_THE_YEAR + " int) ";
