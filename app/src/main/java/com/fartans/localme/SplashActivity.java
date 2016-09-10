@@ -29,7 +29,6 @@ import com.fartans.localme.models.DeviceInfoModel;
 import com.fartans.localme.models.UserModel;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,7 +63,6 @@ public class SplashActivity extends Activity implements LocationListener {
 
     String regid;
 
-    GoogleCloudMessaging gcm;
     AtomicInteger msgId = new AtomicInteger();
     Context context;
 
@@ -91,7 +89,6 @@ public class SplashActivity extends Activity implements LocationListener {
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
             //if(true){
-            gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
 
             if (regid.isEmpty()) {
@@ -361,7 +358,7 @@ public class SplashActivity extends Activity implements LocationListener {
                     // Require the user to click a button again, or perform
                     // exponential back-off.
                 }
-                return msg;
+                return registrationId;
             }
 
             @Override
