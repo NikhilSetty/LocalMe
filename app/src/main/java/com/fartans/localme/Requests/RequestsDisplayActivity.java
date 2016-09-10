@@ -216,6 +216,7 @@ public class RequestsDisplayActivity extends Fragment {
                     i.putString("RequestUserProfession", requestsArray[position].RequestUserProfession);
                     i.putString("RequestUserProfilePhotoServerPath", requestsArray[position].RequestUserProfilePhotoServerPath);
                     i.putString("RequestTime", requestsArray[position].RequestTime);
+                    i.putString("RequestImage", requestsArray[position].ImagePath);
 
                     Fragment individualRequestDisplayFragment = new RequestDisplayActivity();
                     individualRequestDisplayFragment.setArguments(i);
@@ -260,6 +261,7 @@ public class RequestsDisplayActivity extends Fragment {
                 request.RequestTime = temp.getString("RequestedTime") != null ? temp.getString("RequestedTime"): null;
                 request.RequestUserProfession = temp.getString("RequestUserProfession") != null ? temp.getString("RequestUserProfession"): null;
                 request.RequestUserProfilePhotoServerPath = temp.getString("RequestUserProfilePhotoServerPath") != null ? temp.getString("RequestUserProfilePhotoServerPath"): null;
+                request.ImagePath = temp.getString("RequestImageUrl") != null ? temp.getString("RequestImageUrl"): null;
 
                 list.add(request);
 
@@ -693,6 +695,7 @@ public class RequestsDisplayActivity extends Fragment {
                     i.putString("RequestUserProfession", requestsArray[position].RequestUserProfession);
                     i.putString("RequestUserProfilePhotoServerPath", requestsArray[position].RequestUserProfilePhotoServerPath);
                     i.putString("RequestTime", requestsArray[position].RequestTime);
+                    i.putString("RequestImage", requestsArray[position].ImagePath);
 
                     Fragment individualRequestDisplayFragment = new RequestDisplayActivity();
                     individualRequestDisplayFragment.setArguments(i);

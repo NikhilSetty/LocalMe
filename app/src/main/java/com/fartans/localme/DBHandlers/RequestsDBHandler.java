@@ -71,6 +71,7 @@ public class RequestsDBHandler {
                         requests[i].RequestUserName = c.getString(c.getColumnIndex(DbTableStrings.REQUEST_USERNAME));
                         requests[i].RequestUserProfession = c.getString(c.getColumnIndex(DbTableStrings.REQUEST_USER_PROFESSION));
                         requests[i].RequestUserProfilePhotoServerPath = TempDataClass.profilePhotoServerPath;
+                        requests[i].ImagePath = c.getString(c.getColumnIndex(DbTableStrings.REQUEST_IMAGE_PATH));
                         i++;
                     } while (c.moveToPrevious());
                 }

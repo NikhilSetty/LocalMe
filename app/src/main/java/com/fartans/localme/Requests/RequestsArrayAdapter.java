@@ -34,6 +34,7 @@ public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
         TextView textViewRequestString = (TextView) rowView.findViewById(R.id.textViewRequestString);
         TextView textViewTime = (TextView) rowView.findViewById(R.id.textViewTime);
         ImageView image = (ImageView) rowView.findViewById(R.id.list_image);
+        ImageView requestImage = (ImageView) rowView.findViewById(R.id.imageViewRequestImage);
 
         textViewRequestUserName.setText(values[position].RequestUserName);
         textViewRequestString.setText(values[position].RequestString);
@@ -41,6 +42,11 @@ public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
 
         if(!values[position].RequestUserProfilePhotoServerPath.isEmpty() && values[position].RequestUserProfilePhotoServerPath != null){
             Picasso.with(context).load(values[position].RequestUserProfilePhotoServerPath).into(image);
+        }
+        if(!values[position].ImagePath.isEmpty() && values[position].ImagePath!= null){
+            Picasso.with(context).load(values[position].ImagePath).into(requestImage);
+        }else{
+            requestImage.setVisibility(View.GONE);
         }
         // Change the icon for Windows and iPhone
 
