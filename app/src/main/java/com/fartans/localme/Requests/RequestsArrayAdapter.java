@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso;
  */
 public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
     private final Context context;
-    private final Requests[] values;
+    private Requests[] values;
 
     public RequestsArrayAdapter(Context context, Requests[] values) {
         super(context, R.layout.list_row_requests, values);
@@ -51,5 +51,13 @@ public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
         // Change the icon for Windows and iPhone
 
         return rowView;
+    }
+
+    public Requests[] getValues() {
+        return values;
+    }
+
+    public void setValues(Requests[] values) {
+        this.values = values;
     }
 }

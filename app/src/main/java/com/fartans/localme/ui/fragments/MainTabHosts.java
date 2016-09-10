@@ -104,7 +104,7 @@ public class MainTabHosts extends Fragment {
                 RequestsDisplayActivity.class, null);
 
         mTabHost.addTab(mTabHost.newTabSpec("contacts").setIndicator("Vendor"),
-                HomeFragment.class, null);
+                VendorFragment.class, null);
 
         mTabHost.setCurrentTab(getTabIndex(mTabTobeOpened));
         return mTabHost;
