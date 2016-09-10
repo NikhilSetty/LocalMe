@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.fartans.localme.Base64;
 import com.fartans.localme.DBHandlers.DeviceInfoDBHandler;
 import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.R;
 import com.fartans.localme.TempDataClass;
 import com.fartans.localme.models.DeviceInfoKeys;
 import com.fartans.localme.models.DeviceInfoModel;
@@ -35,6 +36,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+
+import cz.msebera.android.httpclient.HttpEntity;
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.StatusLine;
+import cz.msebera.android.httpclient.client.ClientProtocolException;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.util.EntityUtils;
 
 public class LocationDetailsFragment extends Fragment implements onNextPressed{
 

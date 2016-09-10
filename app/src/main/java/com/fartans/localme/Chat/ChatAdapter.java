@@ -13,6 +13,12 @@ import com.fartans.localme.R;
 
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+
 public class ChatAdapter extends BaseAdapter {
     private Context            mContext;
     private ArrayList<Message> mMessages;
