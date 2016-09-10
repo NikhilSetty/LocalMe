@@ -1,49 +1,73 @@
-<RelativeLayout android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:xsi="http://schemas.android.com/apk/res-auto"
+    android:background="#ff026b6c"
+    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#ff026b6c"
     tools:context="com.fartans.localme.SignUp.NewSignUpActicity"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://schemas.android.com/tools "
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xsi:schemaLocation="http://schemas.android.com/tools ">
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:orientation="vertical" android:id="@+id/linearLayout2"
-        android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
-        android:layout_marginTop="127dp" android:padding="10dp"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="127dp"
+        android:orientation="vertical"
+        android:padding="10dp"
         android:weightSum="1">
 
 
-        <EditText android:id="@+id/editTextAddress1" android:layout_width="match_parent"
-            android:layout_height="35dp" android:background="@drawable/rounded_edit_text"
-            android:layout_marginTop="26dp" android:padding="5dp" android:ems="10"
-            android:hint="Address" android:layout_margin="10dp"
-            android:inputType="textPostalAddress" />
+        <EditText
+            android:id="@+id/editTextAddress1"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="26dp"
+            android:background="@drawable/rounded_edit_text"
+            android:ems="10"
+            android:hint="Address"
+            android:inputType="textPostalAddress"
+            android:padding="5dp" />
 
-        <EditText android:id="@+id/editTextPinCode1" android:layout_width="match_parent"
-            android:layout_height="35dp" android:padding="5dp" android:ems="10"
-            android:hint="Pin Code" android:background="@drawable/rounded_edit_text"
-            android:layout_margin="10dp" android:inputType="number" />
+        <EditText
+            android:id="@+id/editTextPinCode1"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_edit_text"
+            android:ems="10"
+            android:hint="Pin Code"
+            android:inputType="number"
+            android:padding="5dp" />
 
         <RadioButton
+            android:id="@+id/radioButtonMarkUserAsVendor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New RadioButton"
-            android:id="@+id/radioButtonMarkUserAsVendor" />
+            android:text="As Vendor" />
 
     </LinearLayout>
 
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/linearLayout2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/border_text"
+        android:gravity="center"
+        android:padding="5dp"
         android:text="Enter the locations in which you want to receive requests and help people!"
-        android:id="@+id/textView12" android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true" android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" android:textColor="#ff454545"
-        android:layout_alignRight="@+id/linearLayout2" android:padding="5dp"
-        android:layout_alignEnd="@+id/linearLayout2" android:gravity="center"
-        android:background="@drawable/border_text" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ff454545" />
 </RelativeLayout>
