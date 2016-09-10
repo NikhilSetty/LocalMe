@@ -38,6 +38,7 @@ public class NewSignUpActicity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_acticity);
+        this.setTitle("LocalMe");
 
 
         if (savedInstanceState == null) {
@@ -108,12 +109,10 @@ public class NewSignUpActicity extends ActionBarActivity {
         EditText editTextFirstName;
         EditText editTextLastName;
         EditText editTextPhoneNumber;
-        EditText editTextProfession;
 
         String _editTextFirstName = "";
         String _editTextLastName = "";
         String _editTextPhoneNumber = "";
-        String _editTextProfession = "";
 
         FragmentActivity activity;
 
@@ -136,7 +135,6 @@ public class NewSignUpActicity extends ActionBarActivity {
             editTextFirstName = (EditText) rootView.findViewById(R.id.editTextNewFirstName);
             editTextLastName = (EditText) rootView.findViewById(R.id.editTextNewLastName);
             editTextPhoneNumber = (EditText) rootView.findViewById(R.id.editTextNewMobileNumber);
-            editTextProfession = (EditText) rootView.findViewById(R.id.editTextNewProfession);
 
             return rootView;
         }
@@ -169,14 +167,6 @@ public class NewSignUpActicity extends ActionBarActivity {
                 return;
             }
 
-
-            _editTextProfession = editTextProfession.getText().toString();
-            if(_editTextProfession.isEmpty()){
-                ((NewSignUpActicity)getActivity()).dismissProgressDialog();
-                editTextProfession.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-                Toast.makeText(activity.getApplicationContext(), "Please enter " + editTextProfession.getHint().toString(), Toast.LENGTH_SHORT).show();
-                return;
-            }
 
             NewSignUpActicity.userModel.FirstName = _editTextFirstName;
             NewSignUpActicity.userModel.LastName = _editTextLastName;
