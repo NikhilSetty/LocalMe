@@ -77,7 +77,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
 
-        type = remoteMessage.getData().get("");
+        type = remoteMessage.getData().get("Type");
         intType = Integer.parseInt(type);
         switch (intType) {
             case 1:

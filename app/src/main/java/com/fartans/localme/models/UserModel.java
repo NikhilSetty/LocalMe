@@ -18,4 +18,6 @@ public class UserModel {
 
     public String password = "";
     public String profilePhotoLocalPath = "";
+
+    public boolean isVendor = false;
 }
