@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -54,29 +55,23 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
 
     EditText editTextAddress1;
     EditText editTextPinCode1;
-    EditText editTextAddress2;
-    EditText editTextPinCode2;
 
     String _editTextAddress1 = "";
     String _editTextPinCode1 = "";
-    String _editTextAddress2 = "";
-    String _editTextPinCode2 = "";
 
     String pinCode1Status = "";
-    String pinCode2Status = "";
 
     boolean isPinCode1Tested = false;
-    boolean isPinCode2Tested = false;
 
-    float lattitude1, longitude1, lattitude2, longitude2;
+    float lattitude1, longitude1;
 
     boolean isPinCode1Verified = false;
-    boolean isPinCode2Verified = false;
 
     String pinCode1HttpStatus = "unknown";
-    String pinCode2HttpStatus = "unknown";
 
     InputStream inputStream;
+
+    RadioButton radioButtonMarkUserAsVendor;
 
     public LocationDetailsFragment() {
         // Required empty public constructor
@@ -92,8 +87,8 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
 
         editTextAddress1 = (EditText) layout.findViewById(R.id.editTextAddress1);
         editTextPinCode1 = (EditText) layout.findViewById(R.id.editTextPinCode1);
-        editTextAddress2= (EditText) layout.findViewById(R.id.editTextAddress2);
-        editTextPinCode2 = (EditText) layout.findViewById(R.id.editTextPinCode2);
+
+        radioButtonMarkUserAsVendor = (RadioButton) layout.findViewById(R.id.radioButtonMarkUserAsVendor);
 
         return layout;
     }
@@ -144,32 +139,18 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             return;
         }
 
-        _editTextAddress2 = editTextAddress2.getText().toString();
-        if(_editTextAddress2.isEmpty()){
-            ((NewSignUpActicity)getActivity()).dismissProgressDialog();
-            editTextAddress2.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter " + editTextAddress2.getHint().toString(), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        _editTextPinCode2 = editTextPinCode2.getText().toString();
-        if(_editTextPinCode2.isEmpty()){
-            ((NewSignUpActicity)getActivity()).dismissProgressDialog();
-            editTextPinCode2.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-            Toast.makeText(getActivity().getApplicationContext(), "Please enter " + editTextPinCode2.getHint().toString(), Toast.LENGTH_SHORT).show();
-            return;
-        }
-
         NewSignUpActicity.userModel.Address1 = _editTextAddress1;
         NewSignUpActicity.userModel.PinCode1 = _editTextPinCode1;
-        NewSignUpActicity.userModel.Address2 = _editTextAddress2;
-        NewSignUpActicity.userModel.PinCode2 = _editTextPinCode2;
+
+        if(radioButtonMarkUserAsVendor.isEnabled()){
+            NewSignUpActicity.userModel.isVendor = true;
+        }else{
+            NewSignUpActicity.userModel.isVendor = false;
+        }
+
 
         HttpGetterPinCode1Handler getter1 = new HttpGetterPinCode1Handler();
         getter1.execute("http://maps.google.com/maps/api/geocode/xml?address='" + _editTextPinCode1 + "'&sensor=false");
-
-        HttpGetterPinCode2Handler getter2 = new HttpGetterPinCode2Handler();
-        getter2.execute("http://maps.google.com/maps/api/geocode/xml?address='" + _editTextPinCode2 + "'&sensor=false");
 
         SignUpUsersIfPinCodesAreVerified signUpProcess = new SignUpUsersIfPinCodesAreVerified();
         signUpProcess.execute();
@@ -283,121 +264,13 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
         return pinCode1Status;
     }
 
-    private class HttpGetterPinCode2Handler extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... urls) {
-            // TODO Auto-generated method stub
-            StringBuilder builder = new StringBuilder();
-            HttpClient client = new DefaultHttpClient();
-            HttpGet httpGet = new HttpGet(urls[0]);
-            String line = "";
-
-            try {
-                HttpResponse response = client.execute(httpGet);
-                StatusLine statusLine = response.getStatusLine();
-                int statusCode = statusLine.getStatusCode();
-                if (statusCode == 200) {
-                    HttpEntity entity = response.getEntity();
-                    InputStream content = entity.getContent();
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(content));
-
-                    while ((line = reader.readLine()) != null) {
-                        builder.append(line);
-                    }
-                    Log.v("Getter", "Your data: " + builder.toString()); //response data
-                } else {
-                    Log.e("Getter", "Failed to get data");
-                }
-            } catch (ClientProtocolException e) {
-                pinCode2HttpStatus = "error";
-                e.printStackTrace();
-            } catch (IOException e) {
-                pinCode2HttpStatus = "error";
-                e.printStackTrace();
-            }
-
-            return builder.toString();
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            pinCode2HttpStatus = "OK";
-            pinCode2Status = getStatusPinCode2FromXml(result);
-            isPinCode2Tested = true;
-            if(pinCode2Status.equals("OK")){
-                isPinCode2Verified = true;
-            }
-            Toast.makeText(getActivity().getApplicationContext(), "p2:" + pinCode2Status, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private String getStatusPinCode2FromXml(String result) {
-
-        try {
-            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-            factory.setNamespaceAware(true);
-            XmlPullParser parser = factory.newPullParser();
-
-            parser.setInput(new StringReader(result));
-
-            int eventType = parser.getEventType();
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-
-                String name = null;
-                switch (eventType) {
-                    case XmlPullParser.START_DOCUMENT:
-                        break;
-                    case XmlPullParser.START_TAG:
-                        name = parser.getName();
-                        if (name.equalsIgnoreCase("status")) {
-                            pinCode2Status = parser.nextText();
-                            if(pinCode2Status.equals("ZERO_RESULTS")){
-                                return pinCode2Status;
-                            }
-                        }
-                        else if (name.equalsIgnoreCase("location")){
-                            int subEvent = parser.nextTag();
-                            if(subEvent == XmlPullParser.START_TAG){
-                                String subName = parser.getName();
-                                if(subName.equals("lat")){
-                                    lattitude2 = Float.parseFloat(parser.nextText().toString());
-                                }
-                                subEvent = parser.nextTag();
-                                if(subEvent == XmlPullParser.START_TAG){
-                                    subName = parser.getName();
-                                    if(subName.equals("lng")){
-                                        longitude2 = Float.parseFloat(parser.nextText().toString());
-                                    }
-                                }
-
-                            }
-
-                        }
-                        break;
-                    case XmlPullParser.END_TAG:
-                        name = parser.getName();
-                        break;
-                }
-                eventType = parser.next();
-            }
-        }catch(Exception ex){
-            //.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("PinCode", ex.getMessage());
-        }
-
-
-        return pinCode2Status;
-    }
-
     private class SignUpUsersIfPinCodesAreVerified extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected Void doInBackground(Void... params) {
 
-            while(!(isPinCode1Verified && isPinCode2Verified)){
-                if(isPinCode1Tested && isPinCode2Tested) {
+            while(!(isPinCode1Verified)){
+                if(isPinCode1Tested) {
                     break;
                 }
             }
@@ -409,11 +282,6 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
 
             if (pinCode1HttpStatus.equals("error") || pinCode1Status.equals("ZERO_RESULTS")) {
                 Toast.makeText(getActivity().getApplicationContext(), "Pin Code 1 not Valid.", Toast.LENGTH_SHORT).show();
-                ((NewSignUpActicity)getActivity()).dismissProgressDialog();
-                return;
-            }
-            else if (pinCode2HttpStatus.equals("error") || pinCode2Status.equals("ZERO_RESULTS")) {
-                Toast.makeText(getActivity().getApplicationContext(), "Pin Code 2 not Valid.", Toast.LENGTH_SHORT).show();
                 ((NewSignUpActicity)getActivity()).dismissProgressDialog();
                 return;
             }
@@ -501,14 +369,15 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             jsonObject.put("Profession", NewSignUpActicity.userModel.Profession);
             jsonObject.put("EmailId", NewSignUpActicity.userModel.EmailId);
             jsonObject.put("Password", NewSignUpActicity.userModel.password);
-            jsonObject.put("Address1", _editTextAddress1);
-            jsonObject.put("PinCode1", _editTextPinCode1);
-            jsonObject.put("Latitude1", lattitude1);
-            jsonObject.put("Longitude1", longitude1);
-            jsonObject.put("Address2", _editTextAddress2);
-            jsonObject.put("PinCode2", _editTextPinCode2);
-            jsonObject.put("Latitude2", lattitude2);
-            jsonObject.put("Longitude2", longitude2);
+            jsonObject.put("Address", _editTextAddress1);
+            jsonObject.put("PinCode", _editTextPinCode1);
+            jsonObject.put("Latitude", lattitude1);
+            jsonObject.put("Longitude", longitude1);
+            if(NewSignUpActicity.userModel.isVendor){
+                jsonObject.put("IsVendor", "true");
+            }else{
+                jsonObject.put("IsVendor", "true");
+            }
             json = jsonObject.toString();
             Log.i("GETTER", json.toString());
             StringEntity se = new StringEntity(json);
