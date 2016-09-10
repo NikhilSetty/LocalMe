@@ -120,7 +120,7 @@ public class UpdateUserFragment extends Fragment {
                     return;
                 }
                 HttpAsyncTask post = new HttpAsyncTask();
-                post.execute("http://teach-mate.azurewebsites.net/User/UpdateUser");
+                post.execute(TempDataClass.BASE_URL + "User/UpdateUser");
             }
         });
 

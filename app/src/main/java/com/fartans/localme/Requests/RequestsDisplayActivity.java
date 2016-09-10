@@ -115,7 +115,7 @@ public class RequestsDisplayActivity extends Fragment {
                 try {
                     lastRequestId = resumeList.get(listViewRequests.getCount() - 2).RequestID;
 
-                    new loadmorelistview().execute("http://teach-mate.azurewebsites.net/Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=" + lastRequestId);
+                    new loadmorelistview().execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=" + lastRequestId);
                 }catch(Exception ex){
                     progressDialog.dismiss();
                     //Log.e("Request", ex.getMessage());
@@ -139,7 +139,7 @@ public class RequestsDisplayActivity extends Fragment {
 
             if(new CommonMethods().hasActiveInternetConnection(activity)){
                 HttpGetter getter = new HttpGetter();
-                getter.execute("http://teach-mate.azurewebsites.net/Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=0");
+                getter.execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=0");
             }
             else{
                 progressDialog.dismiss();
@@ -336,7 +336,7 @@ public class RequestsDisplayActivity extends Fragment {
                             progressDialog.setMessage("Generating Request...");
                             progressDialog.show();
                             HttpAsyncTaskPOST newPost = new HttpAsyncTaskPOST();
-                            newPost.execute("http://teach-mate.azurewebsites.net/Request/SendRequestNotification");
+                            newPost.execute(TempDataClass.BASE_URL + "Request/SendRequestNotification");
                         }
                     }
                 });

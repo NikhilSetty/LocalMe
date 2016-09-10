@@ -141,7 +141,7 @@ public class ResponseDisplayActivity extends Fragment {
                     startActivity(i);
                 } else {
                     GetChatId chat = new GetChatId();
-                    chat.execute("http://teach-mate.azurewebsites.net/Chat/ChatReg");
+                    chat.execute(TempDataClass.BASE_URL + "Chat/ChatReg");
                 }
             }
         });

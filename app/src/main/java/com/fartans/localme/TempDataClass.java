@@ -34,4 +34,6 @@ public class TempDataClass {
     public static boolean alreadyAdded = false;
 
     public static boolean newSignUpProfilePhotoReturn = false;
+
+    public static final String BASE_URL = "http://teach-mate.azurewebsites.net/";
 }

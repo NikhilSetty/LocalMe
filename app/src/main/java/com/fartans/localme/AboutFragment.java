@@ -43,7 +43,7 @@ public class AboutFragment extends Fragment {
         label.setText(text);
         Pattern pattern = Pattern.compile("");
         label.setPaintFlags(label.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-        Linkify.addLinks(label, pattern, "http://teach-mate.azurewebsites.net/");
+        Linkify.addLinks(label, pattern, TempDataClass.BASE_URL + "");
         label.setLinkTextColor(Color.WHITE);
 
         return layout;

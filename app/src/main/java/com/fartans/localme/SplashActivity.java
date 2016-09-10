@@ -113,7 +113,7 @@ public class SplashActivity extends Activity implements LocationListener {
             String profilePhotoPath = DeviceInfoDBHandler.GetValueForKey(getApplicationContext(), DeviceInfoKeys.PROFILE_PHOTO_LOCAL_PATH);
             if (profilePhotoPath != null && !profilePhotoPath.isEmpty()) {
                 TempDataClass.profilePhotoLocalPath = profilePhotoPath;
-                TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/" + TempDataClass.serverUserId + ".jpg";
+                TempDataClass.profilePhotoServerPath = TempDataClass.BASE_URL + "MyImages/" + TempDataClass.serverUserId + ".jpg";
             } else {
                 TempDataClass.profilePhotoLocalPath = "";
             }
@@ -123,7 +123,7 @@ public class SplashActivity extends Activity implements LocationListener {
                 TempDataClass.profilePhotoServerPath = profilePhotoServerPath;
             } else {
                 if (TempDataClass.profilePhotoServerPath.isEmpty()) {
-                    TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/default.jpg";
+                    TempDataClass.profilePhotoServerPath = TempDataClass.BASE_URL + "MyImages/default.jpg";
                 }
             }
 
@@ -148,7 +148,7 @@ public class SplashActivity extends Activity implements LocationListener {
 
                 if (requestIds != null) {
 /*                    DeleteRequestsOnTheServer delete = new DeleteRequestsOnTheServer();
-                    delete.execute("http://teach-mate.azurewebsites.net/Request/DeleteRequests");*/
+                    delete.execute(TempDataClass.BASE_URL + "Request/DeleteRequests");*/
                 }
 
                 try {

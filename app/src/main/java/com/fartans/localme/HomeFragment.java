@@ -166,7 +166,7 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getActivity(), "The above fields cannot be empty.Please fill both the fields and retry", Toast.LENGTH_LONG).show();
                     } else {
                         ask_question_async ask = new ask_question_async();
-                        ask.execute("http://teach-mate.azurewebsites.net/QuestionForum/AddQuestion");
+                        ask.execute(TempDataClass.BASE_URL + "QuestionForum/AddQuestion");
                         alertDialog.dismiss();
 
                     }
@@ -258,7 +258,7 @@ public class HomeFragment extends Fragment {
                             }
                             progressDialog.show();
                             HttpAsyncTaskPOST newPost = new HttpAsyncTaskPOST();
-                            newPost.execute("http://teach-mate.azurewebsites.net/Request/SendRequestNotification");
+                            newPost.execute(TempDataClass.BASE_URL + "Request/SendRequestNotification");
                         }
                     }
                 });

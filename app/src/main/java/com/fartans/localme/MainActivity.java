@@ -74,7 +74,7 @@ public class MainActivity extends ActionBarActivity
         String profilePhotoPath = DeviceInfoDBHandler.GetValueForKey(getApplicationContext(), DeviceInfoKeys.PROFILE_PHOTO_LOCAL_PATH);
         if(profilePhotoPath != null && !profilePhotoPath.isEmpty()) {
             TempDataClass.profilePhotoLocalPath = profilePhotoPath;
-            TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/" + TempDataClass.serverUserId + ".jpg";
+            TempDataClass.profilePhotoServerPath = TempDataClass.BASE_URL + "MyImages/" + TempDataClass.serverUserId + ".jpg";
         }
         else{
             TempDataClass.profilePhotoLocalPath = "";
@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity
         if(profilePhotoPath != null && !profilePhotoPath.isEmpty()) {
             TempDataClass.profilePhotoServerPath = profilePhotoPath;
         }else{
-            TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/default.jpg";
+            TempDataClass.profilePhotoServerPath = TempDataClass.BASE_URL + "MyImages/default.jpg";
         }
 
         Bundle extras = new Bundle();

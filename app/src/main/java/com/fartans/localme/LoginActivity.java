@@ -105,7 +105,7 @@ public class LoginActivity extends Activity {
         }
 
         HttpAuthenticateUser authenticateUser = new HttpAuthenticateUser();
-        authenticateUser.execute("http://teach-mate.azurewebsites.net/User/CheckUser");
+        authenticateUser.execute(TempDataClass.BASE_URL + "User/CheckUser");
 
     }
 
@@ -159,11 +159,11 @@ public class LoginActivity extends Activity {
             convertJsonToObject(result);
 
             HttpGetAllGeneratedRequests requests = new HttpGetAllGeneratedRequests();
-            requests.execute("http://teach-mate.azurewebsites.net/Request/GetRequestsByUser?id=" + TempDataClass.serverUserId);
+            requests.execute(TempDataClass.BASE_URL + "Request/GetRequestsByUser?id=" + TempDataClass.serverUserId);
 
             if(!TempDataClass.deviceRegId.equals(serverRegId)){
                 HttpPostRegIdToServer regIdPost = new HttpPostRegIdToServer();
-                regIdPost.execute("http://teach-mate.azurewebsites.net/User/UpdateRegId");
+                regIdPost.execute(TempDataClass.BASE_URL + "User/UpdateRegId");
             }
             else if(TempDataClass.deviceRegId.equals(serverRegId)){
                 progressDialog.dismiss();

@@ -137,7 +137,7 @@ public class ChatActivity extends ActionBarActivity {
                     text.setText("");
                     addNewMessage(new Message(newMessage, sentBy, time));
                     // sentBy = !sentBy;
-                    new SendMessage().execute("http://teach-mate.azurewebsites.net/Chat/ChatMsg",
+                    new SendMessage().execute(TempDataClass.BASE_URL + "Chat/ChatMsg",
                             newMessage);
                 }
             }

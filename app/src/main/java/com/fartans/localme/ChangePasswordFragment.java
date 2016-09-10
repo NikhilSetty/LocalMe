@@ -119,7 +119,7 @@ public class ChangePasswordFragment extends Fragment {
                 }
 
                 HttpAuthenticateUser post = new HttpAuthenticateUser();
-                post.execute("http://teach-mate.azurewebsites.net/User/CheckUser");
+                post.execute(TempDataClass.BASE_URL + "User/CheckUser");
             }
         });
 
@@ -276,7 +276,7 @@ public class ChangePasswordFragment extends Fragment {
 
             if(authentic){
                 HttpAsyncTask post = new HttpAsyncTask();
-                post.execute("http://teach-mate.azurewebsites.net/User/UpdateUser");
+                post.execute(TempDataClass.BASE_URL + "User/UpdateUser");
             }
 
         }

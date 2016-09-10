@@ -125,7 +125,7 @@ public class RequestDisplayActivity extends Fragment {
             UserModel cUser = UserModelDBHandler.ReturnValue(getActivity().getApplicationContext());
             TempDataClass.serverUserId = cUser.ServerUserId;
             HttpGetter getter = new HttpGetter();
-            getter.execute("http://teach-mate.azurewebsites.net/Request/GetRequestDetails?id=" + notificationRequestId);
+            getter.execute(TempDataClass.BASE_URL + "Request/GetRequestDetails?id=" + notificationRequestId);
             //TODO
         }
 
@@ -245,7 +245,7 @@ public class RequestDisplayActivity extends Fragment {
                         else{
                             responseMessageString = responseEditText.getText().toString();
                             HttpAsyncTask post = new HttpAsyncTask();
-                            post.execute("http://teach-mate.azurewebsites.net/Response/SendResponseNotification");
+                            post.execute(TempDataClass.BASE_URL + "Response/SendResponseNotification");
                             progressDialog.setMessage("Generating Response...");
                             progressDialog.show();
                         }

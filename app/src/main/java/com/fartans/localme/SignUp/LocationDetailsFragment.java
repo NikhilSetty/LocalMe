@@ -419,7 +419,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             }
 
             HttpSignUpAsyncTask signUpUser = new HttpSignUpAsyncTask();
-            signUpUser.execute("http://teach-mate.azurewebsites.net/User/AddUser");
+            signUpUser.execute(TempDataClass.BASE_URL + "User/AddUser");
 
             return;
         }
@@ -450,7 +450,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
                     UserModelDBHandler.InsertProfile(getActivity().getApplicationContext(), NewSignUpActicity.userModel);
 
                     HttpPostRegIdToServer regIdPost = new HttpPostRegIdToServer();
-                    regIdPost.execute("http://teach-mate.azurewebsites.net/User/UpdateRegId");
+                    regIdPost.execute(TempDataClass.BASE_URL + "User/UpdateRegId");
 
                     DeviceInfoModel model = new DeviceInfoModel();
 
@@ -462,15 +462,15 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
 
                         model = new DeviceInfoModel();
                         model.Key = DeviceInfoKeys.PROFILE_PHOTO_SERVER_PATH;
-                        model.Value = "http://teach-mate.azurewebsites.net/MyImages/"+TempDataClass.serverUserId+".jpg";
+                        model.Value = TempDataClass.BASE_URL + "MyImages/"+TempDataClass.serverUserId+".jpg";
                         DeviceInfoDBHandler.InsertDeviceInfo(getActivity().getApplicationContext(), model);
-                        TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/"+TempDataClass.serverUserId+".jpg";
+                        TempDataClass.profilePhotoServerPath = TempDataClass.BASE_URL + "MyImages/"+TempDataClass.serverUserId+".jpg";
                         UploadImage(NewSignUpActicity.userModel.profilePhotoLocalPath);
                     }
                     else{
-                        TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/default.jpg";
+                        TempDataClass.profilePhotoServerPath = TempDataClass.BASE_URL + "MyImages/default.jpg";
                         model.Key = DeviceInfoKeys.PROFILE_PHOTO_SERVER_PATH;
-                        model.Value = "http://teach-mate.azurewebsites.net/MyImages/default.jpg";
+                        model.Value = TempDataClass.BASE_URL + "MyImages/default.jpg";
                         DeviceInfoDBHandler.InsertDeviceInfo(getActivity().getApplicationContext(), model);
                     }
 
@@ -622,7 +622,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
                     String myjson="";
 
                     HttpClient httpclient = new DefaultHttpClient();
-                    HttpPost httppost = new HttpPost("http://teach-mate.azurewebsites.net/User/UploadImage");
+                    HttpPost httppost = new HttpPost(TempDataClass.BASE_URL + "User/UploadImage");
                     myjson=json.toString();
                     StringEntity se = new StringEntity(myjson);
                     Log.e("Upload", myjson);
