@@ -28,20 +28,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-import com.teachmate.teachmate.DBHandlers.QuestionModelDBHandler;
-import com.teachmate.teachmate.DBHandlers.RequestsDBHandler;
-import com.teachmate.teachmate.Requests.MyRequests;
-import com.teachmate.teachmate.models.CategoryList;
-import com.teachmate.teachmate.models.Question_Model;
-import com.teachmate.teachmate.models.Requests;
-import com.teachmate.teachmate.questions.Ask_question;
+import com.fartans.localme.models.CategoryList;
+import com.fartans.localme.models.Question_Model;
+import com.fartans.localme.models.Requests;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 

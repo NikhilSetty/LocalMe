@@ -12,11 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.teachmate.teachmate.DBHandlers.ChatIdMapDBHandler;
-import com.teachmate.teachmate.FragmentTitles;
-import com.teachmate.teachmate.MainActivity;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.models.ChatIdMap;
+import com.fartans.localme.DBHandlers.ChatIdMapDBHandler;
+import com.fartans.localme.FragmentTitles;
+import com.fartans.localme.MainActivity;
+import com.fartans.localme.R;
+import com.fartans.localme.models.ChatIdMap;
 
 import java.util.ArrayList;
 import java.util.List;

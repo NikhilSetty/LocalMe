@@ -19,14 +19,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
-import com.teachmate.teachmate.models.UserModel;
+import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.models.UserModel;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;

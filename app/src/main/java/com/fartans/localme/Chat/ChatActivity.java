@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.fartans.localme.DBHandlers.ChatIdMapDBHandler;
 import com.fartans.localme.DBHandlers.ChatInfoDBHandler;
 import com.fartans.localme.DBHandlers.UserModelDBHandler;
 import com.fartans.localme.R;

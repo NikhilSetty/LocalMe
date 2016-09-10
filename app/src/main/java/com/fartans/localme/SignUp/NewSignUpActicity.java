@@ -21,10 +21,10 @@ import android.os.Build;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.MainActivity;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.UserModel;
+import com.fartans.localme.MainActivity;
+import com.fartans.localme.R;
+import com.fartans.localme.TempDataClass;
+import com.fartans.localme.models.UserModel;
 
 public class NewSignUpActicity extends ActionBarActivity {
 

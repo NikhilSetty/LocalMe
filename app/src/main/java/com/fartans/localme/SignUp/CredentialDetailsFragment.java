@@ -16,9 +16,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.LoginActivity;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
+import com.fartans.localme.R;
+import com.fartans.localme.TempDataClass;
 
 
 public class CredentialDetailsFragment extends Fragment implements onNextPressed {

@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.teachmate.teachmate.models.NsItemModel;
+import com.fartans.localme.models.NsItemModel;
 
 /**
  * Created by NiRavishankar on 1/15/2015.

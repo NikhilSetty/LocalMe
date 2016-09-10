@@ -7,16 +7,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.teachmate.teachmate.DBClasses.DbHelper;
-import com.teachmate.teachmate.DBClasses.DbTableStrings;
-import com.teachmate.teachmate.models.ChatInfo;
+import com.fartans.localme.DBClasses.DbHelper;
+import com.fartans.localme.DBClasses.DbTableStrings;
+import com.fartans.localme.models.ChatInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatInfoDBHandler {
 
-    private static DbHelper       dbHelper;
+    private static DbHelper dbHelper;
     private static SQLiteDatabase db;
 
     public static void InsertChatInfo(Context context, ChatInfo chatInfo) {

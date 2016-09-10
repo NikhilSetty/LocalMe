@@ -16,23 +16,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-import com.teachmate.teachmate.Chat.ChatActivity;
-import com.teachmate.teachmate.DBHandlers.ChatIdMapDBHandler;
-import com.teachmate.teachmate.DBHandlers.RequestsDBHandler;
-import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.ChatIdMap;
-import com.teachmate.teachmate.models.Requests;
-import com.teachmate.teachmate.models.Responses;
-import com.teachmate.teachmate.models.UserModel;
+import com.fartans.localme.Chat.ChatActivity;
+import com.fartans.localme.DBHandlers.ChatIdMapDBHandler;
+import com.fartans.localme.DBHandlers.RequestsDBHandler;
+import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.R;
+import com.fartans.localme.TempDataClass;
+import com.fartans.localme.models.ChatIdMap;
+import com.fartans.localme.models.Requests;
+import com.fartans.localme.models.Responses;
+import com.fartans.localme.models.UserModel;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -43,7 +37,7 @@ import java.io.InputStreamReader;
 public class ResponseDisplayActivity extends Fragment {
 
     Responses currentResponse;
-    Requests  currentRequest;
+    Requests currentRequest;
 
     Button    acceptResponse;
 

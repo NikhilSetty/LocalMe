@@ -18,12 +18,12 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.DBHandlers.RequestsDBHandler;
-import com.teachmate.teachmate.FragmentTitles;
-import com.teachmate.teachmate.MainActivity;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.Requests;
+import com.fartans.localme.DBHandlers.RequestsDBHandler;
+import com.fartans.localme.FragmentTitles;
+import com.fartans.localme.MainActivity;
+import com.fartans.localme.R;
+import com.fartans.localme.TempDataClass;
+import com.fartans.localme.models.Requests;
 
 public class MyRequests extends Fragment {
 

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.teachmate.teachmate.R;
+import com.fartans.localme.R;
 
 public class OTPFragment extends Fragment implements onNextPressed{
 

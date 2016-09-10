@@ -20,9 +20,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.teachmate.teachmate.CommonMethods;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
+import com.fartans.localme.R;
+import com.fartans.localme.TempDataClass;
 
 import java.io.InputStream;
 

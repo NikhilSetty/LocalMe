@@ -19,21 +19,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.teachmate.teachmate.DBHandlers.DeviceInfoDBHandler;
-import com.teachmate.teachmate.DBHandlers.RequestsDBHandler;
-import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
-import com.teachmate.teachmate.models.DeviceInfoKeys;
-import com.teachmate.teachmate.models.DeviceInfoModel;
-import com.teachmate.teachmate.models.UserModel;
+import com.fartans.localme.DBHandlers.DeviceInfoDBHandler;
+import com.fartans.localme.DBHandlers.RequestsDBHandler;
+import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.models.DeviceInfoKeys;
+import com.fartans.localme.models.DeviceInfoModel;
+import com.fartans.localme.models.UserModel;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

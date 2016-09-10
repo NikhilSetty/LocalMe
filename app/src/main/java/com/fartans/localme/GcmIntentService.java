@@ -29,12 +29,11 @@ import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.teachmate.teachmate.Chat.ChatActivity;
-import com.teachmate.teachmate.DBHandlers.ChatIdMapDBHandler;
-import com.teachmate.teachmate.DBHandlers.ChatInfoDBHandler;
-import com.teachmate.teachmate.models.ChatIdMap;
-import com.teachmate.teachmate.models.ChatInfo;
+import com.fartans.localme.Chat.ChatActivity;
+import com.fartans.localme.DBHandlers.ChatIdMapDBHandler;
+import com.fartans.localme.DBHandlers.ChatInfoDBHandler;
+import com.fartans.localme.models.ChatIdMap;
+import com.fartans.localme.models.ChatInfo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

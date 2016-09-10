@@ -15,19 +15,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.teachmate.teachmate.Chat.PreviousChatFragment;
-import com.teachmate.teachmate.DBHandlers.DeviceInfoDBHandler;
-import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
-import com.teachmate.teachmate.Profile.UpdateUserDetailsActivity;
-import com.teachmate.teachmate.Requests.MyRequests;
-import com.teachmate.teachmate.Requests.RequestDisplayActivity;
-import com.teachmate.teachmate.Requests.RequestsDisplayActivity;
-import com.teachmate.teachmate.Responses.ResponseDisplayActivity;
-import com.teachmate.teachmate.models.DeviceInfoKeys;
-import com.teachmate.teachmate.models.UserModel;
-import com.teachmate.teachmate.questions.MyQuestions;
-import com.teachmate.teachmate.questions.QuestionsFeed;
-import com.teachmate.teachmate.questions.SavedForOfflineReading;
+import com.fartans.localme.Chat.PreviousChatFragment;
+import com.fartans.localme.DBHandlers.DeviceInfoDBHandler;
+import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.Profile.UpdateUserDetailsActivity;
+import com.fartans.localme.Requests.MyRequests;
+import com.fartans.localme.Requests.RequestDisplayActivity;
+import com.fartans.localme.Requests.RequestsDisplayActivity;
+import com.fartans.localme.Responses.ResponseDisplayActivity;
+import com.fartans.localme.models.DeviceInfoKeys;
+import com.fartans.localme.models.UserModel;
 
 import java.util.Stack;
 
@@ -103,7 +100,6 @@ public class MainActivity extends ActionBarActivity
                 extras.putString("imagepath",getIntent().getStringExtra("imagepath"));
                 extras.putString("questionid",getIntent().getStringExtra("questionid"));
                 extras.putString("userprofession_questions",getIntent().getStringExtra("userprofession_questions"));
-                initialFragment=new clicked();
                 initialFragment.setArguments(extras);
                 break;
             case "request":

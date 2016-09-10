@@ -8,10 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.Requests;
+import com.fartans.localme.R;
+import com.fartans.localme.models.Requests;
 
 /**
  * Created by NiRavishankar on 12/15/2014.

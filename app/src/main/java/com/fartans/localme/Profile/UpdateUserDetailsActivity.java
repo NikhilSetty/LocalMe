@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.teachmate.teachmate.R;
+import com.fartans.localme.R;
 
 public class UpdateUserDetailsActivity extends ActionBarActivity {
 

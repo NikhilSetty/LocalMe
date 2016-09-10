@@ -22,22 +22,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.DBHandlers.DeviceInfoDBHandler;
-import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
-import com.teachmate.teachmate.models.DeviceInfoKeys;
-import com.teachmate.teachmate.models.DeviceInfoModel;
-import com.teachmate.teachmate.models.UserModel;
+import com.fartans.localme.DBHandlers.DeviceInfoDBHandler;
+import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.models.DeviceInfoKeys;
+import com.fartans.localme.models.DeviceInfoModel;
+import com.fartans.localme.models.UserModel;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;

@@ -7,16 +7,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.teachmate.teachmate.DBClasses.DbHelper;
-import com.teachmate.teachmate.DBClasses.DbTableStrings;
-import com.teachmate.teachmate.models.ChatIdMap;
+import com.fartans.localme.DBClasses.DbHelper;
+import com.fartans.localme.DBClasses.DbTableStrings;
+import com.fartans.localme.models.ChatIdMap;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatIdMapDBHandler {
 
-    private static DbHelper       dbHelper;
+    private static DbHelper dbHelper;
     private static SQLiteDatabase db;
 
     public static void InsertChatIdMap(Context context, ChatIdMap chatIdMap) {

@@ -6,10 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.DBClasses.DbHelper;
-import com.teachmate.teachmate.DBClasses.DbTableStrings;
-import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.Requests;
+import com.fartans.localme.DBClasses.DbHelper;
+import com.fartans.localme.DBClasses.DbTableStrings;
+import com.fartans.localme.TempDataClass;
+import com.fartans.localme.models.Requests;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -17,17 +17,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.Requests.ResponsesArrayAdapter;
-import com.teachmate.teachmate.models.Responses;
+import com.fartans.localme.R;
+import com.fartans.localme.Requests.ResponsesArrayAdapter;
+import com.fartans.localme.models.Responses;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

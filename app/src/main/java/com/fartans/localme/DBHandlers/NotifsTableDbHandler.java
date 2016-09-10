@@ -5,8 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
-import com.teachmate.teachmate.DBClasses.DbHelper;
-import com.teachmate.teachmate.DBClasses.DbTableStrings;
+import com.fartans.localme.DBClasses.DbHelper;
+import com.fartans.localme.DBClasses.DbTableStrings;
 
 /**
  * Created by archon on 25-01-2015.

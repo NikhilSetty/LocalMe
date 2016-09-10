@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.teachmate.teachmate.R;
+import com.fartans.localme.R;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,5 @@
 package com.fartans.localme.models;
 
-import com.teachmate.teachmate.questions.Ask_question;
-
 import java.util.ArrayList;
 import java.util.List;
 
