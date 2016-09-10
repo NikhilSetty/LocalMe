@@ -1,6 +1,7 @@
 package com.fartans.localme;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +62,7 @@ public class SplashActivity extends Activity implements LocationListener {
      */
     String SENDER_ID = "828188631625";
     TextView mDisplay;
+    ImageView mIcon;
     static final String TAG = "GCM";
 
     String regid;
@@ -87,6 +90,7 @@ public class SplashActivity extends Activity implements LocationListener {
         context = getApplicationContext();
 
         mDisplay = (TextView) findViewById(R.id.textViewRegId);
+        mIcon = (ImageView)findViewById(R.id.imageView5);
 
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
@@ -136,8 +140,15 @@ public class SplashActivity extends Activity implements LocationListener {
                     public void run() {
                         // This method will be executed once the timer is over
                         // Start your app main activity
+                        Bundle bundle;
                         Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(i);
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                            bundle = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, mIcon, mIcon.getTransitionName()).toBundle();
+                            startActivity(i,bundle);
+                        }
+                        else {
+                            startActivity(i);
+                        }
 
                         // close this activity
                         finish();
