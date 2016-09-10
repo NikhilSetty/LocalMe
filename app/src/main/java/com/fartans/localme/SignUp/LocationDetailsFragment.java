@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.fartans.localme.Base64;
 import com.fartans.localme.DBHandlers.DeviceInfoDBHandler;
 import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.Firebase.MyFireBaseInstanceIdService;
 import com.fartans.localme.R;
 import com.fartans.localme.TempDataClass;
 import com.fartans.localme.models.DeviceInfoKeys;
@@ -441,6 +442,9 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             String json = "";
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("Id", NewSignUpActicity.userModel.ServerUserId);
+            if(TempDataClass.deviceRegId == null || TempDataClass.deviceRegId.equals("")){
+                TempDataClass.deviceRegId = MyFireBaseInstanceIdService.getToken();
+            }
             jsonObject.put("RegistrationId", TempDataClass.deviceRegId);
             json = jsonObject.toString();
             StringEntity se = new StringEntity(json);

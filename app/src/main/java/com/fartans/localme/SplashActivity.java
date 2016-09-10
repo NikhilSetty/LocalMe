@@ -373,9 +373,9 @@ public class SplashActivity extends Activity implements LocationListener {
 
             @Override
             protected void onPostExecute(String msg) {
-                mDisplay.append(msg + "\n");
-                if(registrationId != null && registrationId.equals("")) {
-                    TempDataClass.deviceRegId = registrationId;
+                mDisplay.append(msg + " I saw it here. \n");
+                if(msg != null && msg.equals("")) {
+                    TempDataClass.deviceRegId = msg;
                 }
             }
         }.execute(null, null, null);
