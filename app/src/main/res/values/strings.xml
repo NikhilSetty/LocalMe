@@ -68,4 +68,8 @@
     <string name="title_activity_update_user_profile">UpdateUserProfileActivity</string>
     <string name="title_activity_update_user_details">UpdateUserDetailsActivity</string>
 
+    <string name="load_more_items">Load more items</string>
+    <string name="loading_requests">Loading Requests…</string>
+    <string name="generating_requests">Generating Request…</string>
+    <string name="new_request">New Request</string>
 </resources>

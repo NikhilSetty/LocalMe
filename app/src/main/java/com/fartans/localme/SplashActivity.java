@@ -166,7 +166,7 @@ public class SplashActivity extends Activity implements LocationListener {
                     TempDataClass.emailId = currentUser.EmailId;
                 } catch (Exception ex) {
                     //Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.e("DB", ex.getMessage());
+                    //Log.e("DB", ex.getMessage());
                 }
 
                 new Handler().postDelayed(new Runnable() {

@@ -52,20 +52,20 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class RequestDisplayActivity extends Fragment {
 
-    Requests currentRequest;
-    String notificationRequestId;
+    private Requests currentRequest;
+    private String notificationRequestId;
 
-    String responseMessageString;
+    private String responseMessageString;
 
-    Button sendResponseButton;
+    private Button sendResponseButton;
 
-    TextView requestUserName;
-    TextView requestString;
-    TextView requestTime;
-    TextView requestUserProfession;
-    ImageView profilePhoto;
+    private TextView requestUserName;
+    private TextView requestString;
+    private TextView requestTime;
+    private TextView requestUserProfession;
+    private ImageView profilePhoto;
 
-    ProgressDialog progressDialog;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onAttach(Activity activity) {

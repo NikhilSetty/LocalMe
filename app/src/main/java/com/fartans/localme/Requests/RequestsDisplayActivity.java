@@ -37,7 +37,6 @@ import com.fartans.localme.TempDataClass;
 import com.fartans.localme.models.Requests;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -63,30 +62,32 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 
 public class RequestsDisplayActivity extends Fragment {
 
-    ListView listViewRequests;
-    ListAdapter listAdapter;
+    private ListView listViewRequests;
 
-    String newRequestString;
-    boolean isCurrentLocation;
+    private ListAdapter listAdapter;
 
-    ProgressDialog progressDialog;
+    private String newRequestString;
 
-    Requests newRequest;
+    private boolean isCurrentLocation;
 
-    FragmentActivity activity;
+    private ProgressDialog mProgressDialog;
 
-    RelativeLayout connectionLostLayout;
+    private Requests newRequest;
+
+    private FragmentActivity activity;
+
+    private RelativeLayout connectionLostLayout;
+
+    private Button retryButton;
+
+    private int index;
 
     private static List<Requests> resumeList = new ArrayList<Requests>();
 
     private boolean isFromOnResume = false;
 
-    Button retryButton;
-
     public int lastviewposition;
     public int listCurrentPosition;
-
-    int index;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,26 +99,24 @@ public class RequestsDisplayActivity extends Fragment {
         retryButton = (Button) layout.findViewById(R.id.buttonRetry);
         connectionLostLayout = (RelativeLayout) layout.findViewById(R.id.layout_connectionLost);
 
-        Button loadmore = new Button(getActivity());
-        loadmore.setBackgroundColor(Color.WHITE);
-        loadmore.setTextColor(Color.BLACK);
-        loadmore.setText("Load more items");
-        listViewRequests.addFooterView(loadmore);
+        final Button loadMore = new Button(getActivity());
+        loadMore.setBackgroundColor(Color.WHITE);
+        loadMore.setTextColor(Color.BLACK);
+        loadMore.setText(R.string.load_more_items);
+        listViewRequests.addFooterView(loadMore);
 
-        loadmore.setOnClickListener(new View.OnClickListener() {
+        loadMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.setMessage("Loading Requests...");
-                progressDialog.show();
+                showProgress(true,getString(R.string.loading_requests));
                 listCurrentPosition = listViewRequests.getFirstVisiblePosition();
                 lastviewposition = listViewRequests.getCount()-1;
                 String lastRequestId;
                 try {
                     lastRequestId = resumeList.get(listViewRequests.getCount() - 2).RequestID;
-
-                    new loadmorelistview().execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=" + lastRequestId);
+                    new LoadmoreAPIAsyncTask().execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=" + lastRequestId);
                 }catch(Exception ex){
-                    progressDialog.dismiss();
+                    showProgress(false,null);
                     //Log.e("Request", ex.getMessage());
                 }
 
@@ -127,14 +126,8 @@ public class RequestsDisplayActivity extends Fragment {
             }
         });
 
-        setHasOptionsMenu(true);
-
         if(!isFromOnResume) {
-            progressDialog = new ProgressDialog(getActivity());
-            progressDialog.setCancelable(false);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Loading Requests...");
-            progressDialog.show();
+            showProgress(true,getString(R.string.loading_requests));
 
 
             if(new CommonMethods().hasActiveInternetConnection(activity)){
@@ -142,7 +135,7 @@ public class RequestsDisplayActivity extends Fragment {
                 getter.execute(TempDataClass.BASE_URL + "Request/GetAllRequestsAssigned?id=" + TempDataClass.serverUserId + "&lastRequestId=0");
             }
             else{
-                progressDialog.dismiss();
+                showProgress(false,null);
                 listViewRequests.setVisibility(View.INVISIBLE);
                 connectionLostLayout.setVisibility(View.VISIBLE);
             }
@@ -155,7 +148,7 @@ public class RequestsDisplayActivity extends Fragment {
         List<Requests> list = GetObjectsFromResponse(result);
         if(list != null){
             populateListView(list);
-            progressDialog.dismiss();
+            showProgress(false,null);
         }*/
 
         retryButton.setOnClickListener(new View.OnClickListener() {
@@ -333,8 +326,7 @@ public class RequestsDisplayActivity extends Fragment {
                             else{
                                 isCurrentLocation = true;
                             }
-                            progressDialog.setMessage("Generating Request...");
-                            progressDialog.show();
+                            showProgress(true,getString(R.string.generating_requests));
                             HttpAsyncTaskPOST newPost = new HttpAsyncTaskPOST();
                             newPost.execute(TempDataClass.BASE_URL + "Request/SendRequestNotification");
                         }
@@ -435,7 +427,7 @@ public class RequestsDisplayActivity extends Fragment {
             newRequest.RequestUserProfession = TempDataClass.userProfession;
             RequestsDBHandler.InsertRequests(getActivity().getApplicationContext(), newRequest);
             Toast.makeText(getActivity().getApplicationContext(), "Request Generated Successfully!", Toast.LENGTH_LONG).show();
-            progressDialog.dismiss();
+            showProgress(false,null);
         }
     }
 
@@ -495,9 +487,9 @@ public class RequestsDisplayActivity extends Fragment {
                     if (list != null) {
                         populateListView(list);
                     }
-                    progressDialog.dismiss();
+                    showProgress(false,null);
                 } else {
-                    progressDialog.dismiss();
+                    showProgress(false,null);
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
                     builder1.setTitle("Alert!");
                     builder1.setMessage("No New Requests found in Server!");
@@ -513,7 +505,7 @@ public class RequestsDisplayActivity extends Fragment {
                     alert11.show();
                 }
             }else{
-                progressDialog.dismiss();
+                showProgress(false,null);
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
                 builder1.setTitle("Alert!");
                 builder1.setMessage("No New Requests found in Server!");
@@ -531,14 +523,13 @@ public class RequestsDisplayActivity extends Fragment {
         }
     }
 
-    public class loadmorelistview extends AsyncTask<String ,Void,String>{
+    public class LoadmoreAPIAsyncTask extends AsyncTask<String ,Void,String>{
         int current_position = listViewRequests.getFirstVisiblePosition();
         int lastpostiton = listViewRequests.getCount()-1;
 
 
         @Override
         protected String doInBackground(String... params) {
-            // TODO Auto-generated method stub
             StringBuilder builder = new StringBuilder();
             HttpClient client = new DefaultHttpClient();
             HttpGet httpGet = new HttpGet(params[0]);
@@ -557,14 +548,14 @@ public class RequestsDisplayActivity extends Fragment {
                     while ((line = reader.readLine()) != null) {
                         builder.append(line);
                     }
-                    Log.v("Getter", "Your data: " + builder.toString()); //response data
+                    Log.d("Getter", "Your data: " + builder.toString()); //response data
                 } else {
                     Log.e("Getter", "Failed to get data");
                 }
             } catch (ClientProtocolException e) {
-                e.printStackTrace();
+                Log.e("ClientProtocolException","ClientProtocolException in LoadmoreAPIAsyncTask requestdisplayactivity",e);
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("IOException","IOException in LoadmoreAPIAsyncTask requestdisplayactivity",e);
             }
 
             return builder.toString();
@@ -576,9 +567,9 @@ public class RequestsDisplayActivity extends Fragment {
                     if (list != null) {
                         AddToListView(list);
                     }
-                    progressDialog.dismiss();
+                    showProgress(false,null);
                 } else {
-                    progressDialog.dismiss();
+                    showProgress(false,null);
                     AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
                     builder1.setTitle("Alert!");
                     builder1.setMessage("No more Requests found in Server!");
@@ -594,7 +585,7 @@ public class RequestsDisplayActivity extends Fragment {
                     alert11.show();
                 }
             }else{
-                progressDialog.dismiss();
+                showProgress(false,null);
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
                 builder1.setTitle("Alert!");
                 builder1.setMessage("No more Requests found in Server!");
@@ -661,6 +652,21 @@ public class RequestsDisplayActivity extends Fragment {
             }
 
         });
+    }
+
+    private void showProgress(final boolean show,final String message) {
+        if(mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(getContext());
+            mProgressDialog.setCancelable(false);
+            mProgressDialog.setIndeterminate(true);
+        }
+        if(show) {
+            mProgressDialog.setMessage(message);
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.dismiss();
+        }
+
     }
 
 }

@@ -23,8 +23,10 @@ import com.fartans.localme.Requests.MyRequests;
 import com.fartans.localme.Requests.RequestDisplayActivity;
 import com.fartans.localme.Requests.RequestsDisplayActivity;
 import com.fartans.localme.Responses.ResponseDisplayActivity;
+import com.fartans.localme.enums.RequestType;
 import com.fartans.localme.models.DeviceInfoKeys;
 import com.fartans.localme.models.UserModel;
+import com.fartans.localme.ui.fragments.MainTabHosts;
 
 import java.util.Stack;
 
@@ -172,7 +174,7 @@ public class MainActivity extends ActionBarActivity
                 initialFragment = new HomeFragment();
                 break;
             case 1:
-                initialFragment = new RequestsDisplayActivity();
+                initialFragment = MainTabHosts.newInstance(RequestType.LOCAL);
                 break;
             case 2:
                 initialFragment = new MyRequests();

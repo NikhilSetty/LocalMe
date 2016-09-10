@@ -201,8 +201,8 @@ public class LoginActivity extends Activity {
                 userData.PhoneNumber = userDataJson.get("PhoneNumber").toString();
                 // userData.Profession = userDataJson.get("Profession").toString();
                 userData.EmailId = userDataJson.get("EmailId").toString();
-                userData.Address1 = userDataJson.get("Address1").toString();
-                userData.PinCode1 = userDataJson.get("PinCode1").toString();
+                userData.Address1 = userDataJson.get("Address").toString();
+                userData.PinCode1 = userDataJson.get("Pincode").toString();
 
                 profilePhotoPath = userDataJson.get("ProfilePhotoUrl").toString();
 

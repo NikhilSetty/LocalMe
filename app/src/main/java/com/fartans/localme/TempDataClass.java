@@ -13,16 +13,13 @@ import java.util.Stack;
  */
 public class TempDataClass {
 
-    public static String deviceRegId;
-
-    public static String serverUserId;
-    public static String userProfession;
-    public static String userName;
-    public static String emailId;
-
-    public static String currentLattitude;
-    public static String currentLongitude;
-
+    public static String deviceRegId = "";
+    public static String serverUserId = "";
+    public static String userProfession = "";
+    public static String userName = "";
+    public static String emailId = "";
+    public static String currentLattitude = "";
+    public static String currentLongitude = "";
     public static Stack<Fragment> fragmentStack = new Stack<Fragment>();
 
     public static Stack<Fragment> signUpStack = new Stack<>();
@@ -35,5 +32,6 @@ public class TempDataClass {
 
     public static boolean newSignUpProfilePhotoReturn = false;
 
+    //public static final String BASE_URL = "http://teach-mate.azurewebsites.net/";
     public static final String BASE_URL = "http://192.168.43.121/localme/";
 }
