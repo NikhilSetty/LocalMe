@@ -142,7 +142,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
         NewSignUpActicity.userModel.Address1 = _editTextAddress1;
         NewSignUpActicity.userModel.PinCode1 = _editTextPinCode1;
 
-        if(radioButtonMarkUserAsVendor.isEnabled()){
+        if(radioButtonMarkUserAsVendor.isChecked()){
             NewSignUpActicity.userModel.isVendor = true;
         }else{
             NewSignUpActicity.userModel.isVendor = false;
@@ -369,12 +369,12 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             jsonObject.put("Password", NewSignUpActicity.userModel.password);
             jsonObject.put("Address", _editTextAddress1);
             jsonObject.put("PinCode", _editTextPinCode1);
-            jsonObject.put("Latitude", lattitude1);
-            jsonObject.put("Longitude", longitude1);
+            jsonObject.put("Latitude", 12.5 );
+            jsonObject.put("Longitude", 77.5);
             if(NewSignUpActicity.userModel.isVendor){
                 jsonObject.put("IsVendor", "true");
             }else{
-                jsonObject.put("IsVendor", "true");
+                jsonObject.put("IsVendor", "false");
             }
             json = jsonObject.toString();
             Log.i("GETTER", json.toString());
