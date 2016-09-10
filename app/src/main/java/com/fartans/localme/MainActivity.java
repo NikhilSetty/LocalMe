@@ -181,16 +181,7 @@ public class MainActivity extends ActionBarActivity
             case 5:
                 initialFragment = new PreviousChatFragment();
                 break;
-            case 3:
-                initialFragment = new QuestionsFeed();
-                break;
             case 4:
-                initialFragment = new MyQuestions();
-                break;
-            case 7:
-                initialFragment = new SavedForOfflineReading();
-                break;
-            case 6:
                 initialFragment = new AboutFragment();
                 break;
             default:
@@ -341,20 +332,6 @@ public class MainActivity extends ActionBarActivity
 
         Intent i = new Intent(this, UpdateUserDetailsActivity.class);
         startActivity(i);
-    }
-
-    public void NavigatetoOfflineQuestions(View v){
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.container);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment temp = new SavedForOfflineReading();
-        TempDataClass.fragmentStack.lastElement().onPause();
-        TempDataClass.fragmentStack.push(currentFragment);
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, temp)
-                .commit();
-
-        mNavigationDrawerFragment.CloseDrawer();
     }
 
     public void ChangePassword(View v){

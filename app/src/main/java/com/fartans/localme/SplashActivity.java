@@ -13,6 +13,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,9 +23,13 @@ import android.widget.Toast;
 import com.fartans.localme.DBHandlers.DeviceInfoDBHandler;
 import com.fartans.localme.DBHandlers.RequestsDBHandler;
 import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.Firebase.MyFireBaseInstanceIdService;
 import com.fartans.localme.models.DeviceInfoKeys;
 import com.fartans.localme.models.DeviceInfoModel;
 import com.fartans.localme.models.UserModel;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -66,6 +71,8 @@ public class SplashActivity extends Activity implements LocationListener {
 
     private static int SPLASH_TIME_OUT = 3000;
 
+    String registrationId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +84,7 @@ public class SplashActivity extends Activity implements LocationListener {
 
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
-        //if(true){
+            //if(true){
             gcm = GoogleCloudMessaging.getInstance(this);
             regid = getRegistrationId(context);
 
@@ -90,7 +97,7 @@ public class SplashActivity extends Activity implements LocationListener {
 
             String dbRegID = DeviceInfoDBHandler.GetValueForKey(getApplicationContext(), DeviceInfoKeys.REGISTRATION_ID);
 
-            if(!regid.equals(dbRegID)) {
+            if (!regid.equals(dbRegID)) {
                 //TODO
             }
 
@@ -98,20 +105,18 @@ public class SplashActivity extends Activity implements LocationListener {
             getCurrentLocation();
 
             String profilePhotoPath = DeviceInfoDBHandler.GetValueForKey(getApplicationContext(), DeviceInfoKeys.PROFILE_PHOTO_LOCAL_PATH);
-            if(profilePhotoPath != null && !profilePhotoPath.isEmpty()) {
+            if (profilePhotoPath != null && !profilePhotoPath.isEmpty()) {
                 TempDataClass.profilePhotoLocalPath = profilePhotoPath;
                 TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/" + TempDataClass.serverUserId + ".jpg";
-            }
-            else{
+            } else {
                 TempDataClass.profilePhotoLocalPath = "";
             }
 
             String profilePhotoServerPath = DeviceInfoDBHandler.GetValueForKey(getApplicationContext(), DeviceInfoKeys.PROFILE_PHOTO_SERVER_PATH);
-            if(profilePhotoServerPath != null && !profilePhotoServerPath.isEmpty()) {
+            if (profilePhotoServerPath != null && !profilePhotoServerPath.isEmpty()) {
                 TempDataClass.profilePhotoServerPath = profilePhotoServerPath;
-            }
-            else{
-                if(TempDataClass.profilePhotoServerPath.isEmpty()) {
+            } else {
+                if (TempDataClass.profilePhotoServerPath.isEmpty()) {
                     TempDataClass.profilePhotoServerPath = "http://teach-mate.azurewebsites.net/MyImages/default.jpg";
                 }
             }
@@ -132,12 +137,10 @@ public class SplashActivity extends Activity implements LocationListener {
                         finish();
                     }
                 }, 3000);
-            }
-
-            else{
+            } else {
                 requestIds = RequestsDBHandler.GetAllRequestsBeforeThreeDays(getApplicationContext());
 
-                if(requestIds != null){
+                if (requestIds != null) {
 /*                    DeleteRequestsOnTheServer delete = new DeleteRequestsOnTheServer();
                     delete.execute("http://teach-mate.azurewebsites.net/Request/DeleteRequests");*/
                 }
@@ -148,7 +151,7 @@ public class SplashActivity extends Activity implements LocationListener {
                     TempDataClass.userProfession = currentUser.Profession;
                     TempDataClass.userName = currentUser.FirstName + " " + currentUser.LastName;
                     TempDataClass.emailId = currentUser.EmailId;
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     //Toast.makeText(getApplicationContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                     Log.e("DB", ex.getMessage());
                 }
@@ -168,14 +171,13 @@ public class SplashActivity extends Activity implements LocationListener {
                 }, SPLASH_TIME_OUT);
             }
             mDisplay.append(regid);
-        }
-        else {
+        } else {
             Log.i(TAG, "No valid Google Play Services APK found.");
         }
 
     }
 
-    private boolean getCurrentLocation(){
+    private boolean getCurrentLocation() {
         //Get current Location from LocationManager:
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -183,6 +185,16 @@ public class SplashActivity extends Activity implements LocationListener {
         // default
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return false;
+        }
         Location location = locationManager.getLastKnownLocation(provider);
 
         // Initialize the location fields
@@ -318,7 +330,7 @@ public class SplashActivity extends Activity implements LocationListener {
             protected String doInBackground(Void... params) {
                 String msg = "";
                 try {
-                    if (gcm == null) {
+                    /*if (gcm == null) {
                         gcm = GoogleCloudMessaging.getInstance(context);
                     }
                     regid = gcm.register(SENDER_ID);
@@ -333,8 +345,11 @@ public class SplashActivity extends Activity implements LocationListener {
                     // 'from' address in the message.
 
                     // Persist the regID - no need to register again.
-                    storeRegistrationId(context, regid);
-                } catch (IOException ex) {
+                    storeRegistrationId(context, regid);*/
+
+                    registrationId = MyFireBaseInstanceIdService.getToken();
+
+                } catch (Exception ex) {
                     Log.e("ERROR", ex.getMessage());
                     // If there is an error, don't just keep trying to register.
                     // Require the user to click a button again, or perform
@@ -346,7 +361,9 @@ public class SplashActivity extends Activity implements LocationListener {
             @Override
             protected void onPostExecute(String msg) {
                 mDisplay.append(msg + "\n");
-                TempDataClass.deviceRegId = msg;
+                if(registrationId != null && registrationId.equals("")) {
+                    TempDataClass.deviceRegId = registrationId;
+                }
             }
         }.execute(null, null, null);
     }

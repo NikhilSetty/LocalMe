@@ -22,24 +22,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fartans.localme.DBHandlers.UserModelDBHandler;
+import com.fartans.localme.FragmentTitles;
+import com.fartans.localme.MainActivity;
+import com.fartans.localme.R;
+import com.fartans.localme.TempDataClass;
+import com.fartans.localme.models.Requests;
+import com.fartans.localme.models.UserModel;
 import com.squareup.picasso.Picasso;
-import com.teachmate.teachmate.DBHandlers.UserModelDBHandler;
-import com.teachmate.teachmate.FragmentTitles;
-import com.teachmate.teachmate.MainActivity;
-import com.teachmate.teachmate.R;
-import com.teachmate.teachmate.TempDataClass;
-import com.teachmate.teachmate.models.Requests;
-import com.teachmate.teachmate.models.UserModel;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
