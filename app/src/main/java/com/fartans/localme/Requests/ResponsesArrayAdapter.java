@@ -34,6 +34,8 @@ public class ResponsesArrayAdapter extends ArrayAdapter<Responses> {
         TextView textViewRequestString = (TextView) rowView.findViewById(R.id.textViewRequestString);
         TextView textViewTime = (TextView) rowView.findViewById(R.id.textViewTime);
         ImageView image = (ImageView) rowView.findViewById(R.id.list_image);
+        ImageView requestImage = (ImageView) rowView.findViewById(R.id.imageViewRequestImage);
+        requestImage.setVisibility(View.GONE);
 
         textViewRequestUserName.setText(values[position].ResponseUserName);
         textViewRequestString.setText(values[position].ResponseString);

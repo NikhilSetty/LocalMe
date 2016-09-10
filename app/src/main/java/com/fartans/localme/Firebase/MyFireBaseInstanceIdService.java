@@ -2,6 +2,7 @@ package com.fartans.localme.Firebase;
 
 import android.util.Log;
 
+import com.fartans.localme.TempDataClass;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -19,6 +20,7 @@ public class MyFireBaseInstanceIdService extends FirebaseInstanceIdService {
 
         //Displaying token on logcat
         Log.d(TAG, "Refreshed token: " + refreshedToken);
+        TempDataClass.deviceRegId = refreshedToken;
 
     }
 
