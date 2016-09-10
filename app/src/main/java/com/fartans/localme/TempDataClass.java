@@ -35,5 +35,5 @@ public class TempDataClass {
 
     public static boolean newSignUpProfilePhotoReturn = false;
 
-    public static final String BASE_URL = "http://teach-mate.azurewebsites.net/";
+    public static final String BASE_URL = "http://192.168.43.121/localme/";
 }
