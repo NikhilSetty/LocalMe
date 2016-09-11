@@ -47,7 +47,7 @@ public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
         if(!values[position].RequestUserProfilePhotoServerPath.isEmpty() && values[position].RequestUserProfilePhotoServerPath != null){
             Picasso.with(context).load(values[position].RequestUserProfilePhotoServerPath).into(image);
         }
-        if(!values[position].ImagePath.isEmpty() && values[position].ImagePath!= null){
+        if(values[position].ImagePath!= null && !values[position].ImagePath.isEmpty()){
             if(values[position].ImagePath.contains("http")) {
                 Picasso.with(context).load(values[position].ImagePath).into(requestImage);
             }else{
