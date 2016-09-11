@@ -18,9 +18,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,7 +32,6 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.fartans.localme.Base64;
-import com.fartans.localme.CommonMethods;
 import com.fartans.localme.DBHandlers.RequestsDBHandler;
 import com.fartans.localme.FragmentTitles;
 import com.fartans.localme.MainActivity;
@@ -262,8 +258,14 @@ public class RequestsDisplayActivity extends Fragment {
                 request.RequestUserProfession = temp.getString("RequestUserProfession") != null ? temp.getString("RequestUserProfession"): null;
                 request.RequestUserProfilePhotoServerPath = temp.getString("RequestUserProfilePhotoServerPath") != null ? temp.getString("RequestUserProfilePhotoServerPath"): null;
                 request.ImagePath = temp.getString("RequestImageUrl") != null ? temp.getString("RequestImageUrl"): null;
+                String isActive = temp.getString("IsActive") != null ? temp.getString("IsActive"): null;
+                if(isActive != null && isActive.equals("true")){
+                    request.IsActive = true;
+                    list.add(request);
+                }else{
+                    request.IsActive = false;
+                }
 
-                list.add(request);
 
             }
 

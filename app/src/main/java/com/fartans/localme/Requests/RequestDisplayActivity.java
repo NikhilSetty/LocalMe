@@ -222,6 +222,13 @@ public class RequestDisplayActivity extends Fragment {
             request.RequestUserProfilePhotoServerPath = currentJsonObject.getString("RequestUserProfilePhotoServerPath") != null ? currentJsonObject.getString("RequestUserProfilePhotoServerPath"): null;
             request.ImagePath = currentJsonObject.getString("RequestImageUrl") != null ? currentJsonObject.getString("RequestImageUrl"): null;
 
+            String isActive = currentJsonObject.getString("IsActive") != null ? currentJsonObject.getString("IsActive"): null;
+
+            if(isActive != null && !isActive.equals("true")){
+                sendResponseButton.setEnabled(false);
+                sendResponseButton.setText("Request Inactive");
+            }
+
             return request;
         }
         catch(Exception e){
