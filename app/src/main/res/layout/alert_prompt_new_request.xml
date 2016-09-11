@@ -10,6 +10,7 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:text="Your Request : "
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#ff000000" />
@@ -52,13 +53,16 @@
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
         android:text="Target Users in Current Location :"
         android:id="@+id/switch1" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="Upload Image"
+        android:drawablePadding="8dp"
         android:id="@+id/buttonUploadImage"
         android:layout_gravity="center_horizontal" />
 

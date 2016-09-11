@@ -2,6 +2,7 @@ package com.fartans.localme.Requests;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,7 +94,7 @@ public class RequestsDisplayActivity extends Fragment {
 
     public int lastviewposition;
     public int listCurrentPosition;
-
+    Button buttonUploadImage;
 
     private static int RESULT_LOAD_IMAGE = 2;
 
@@ -310,7 +312,7 @@ public class RequestsDisplayActivity extends Fragment {
     public void GenerateNewRequest() {
         RequestImagePath = "";
         LayoutInflater li = LayoutInflater.from(getActivity());
-        View promptsView = li.inflate(R.layout.alert_prompt_new_request, null);
+        final View promptsView = li.inflate(R.layout.alert_prompt_new_request, null);
 
         ArrayList<String> array = new ArrayList<String>();
         array.add("Registered Locations");
@@ -340,7 +342,10 @@ public class RequestsDisplayActivity extends Fragment {
 
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptsView);
-        alertDialogBuilder.setMessage("Generate New Request!");
+        //alertDialogBuilder.setMessage("Generate New Request!");
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view=inflater.inflate(R.layout.custom_title_view, null);
+        alertDialogBuilder.setCustomTitle(view);
         alertDialogBuilder.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
 
@@ -469,7 +474,12 @@ public class RequestsDisplayActivity extends Fragment {
             int columnIndex = SelectedCursor.getColumnIndex(FilePathColumn[0]);
             String picturePath = SelectedCursor.getString(columnIndex);
             RequestImagePath = picturePath;
-            SelectedCursor.close();
+            if(!TextUtils.isEmpty(RequestImagePath)){
+                buttonUploadImage.setText("Uploaded");
+            }
+
+                SelectedCursor.close();
+
 
             // image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
             //CommonMethods.scaleImage(getActivity().getApplicationContext(), image, 100);
