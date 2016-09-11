@@ -62,8 +62,6 @@ public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
         }else{
             requestImage.setVisibility(View.GONE);
         }
-        // Change the icon for Windows and iPhone
-
         return rowView;
     }
 

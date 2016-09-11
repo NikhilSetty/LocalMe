@@ -2,6 +2,7 @@ package com.fartans.localme.Requests;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -12,6 +13,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +41,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import cz.msebera.android.httpclient.HttpEntity;
 import cz.msebera.android.httpclient.HttpResponse;
@@ -78,6 +82,7 @@ public class RequestDisplayActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         activity = (FragmentActivity) super.getActivity();
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.activity_request_display, container, false);
 
@@ -134,7 +139,6 @@ public class RequestDisplayActivity extends Fragment {
             TempDataClass.serverUserId = cUser.ServerUserId;
             HttpGetter getter = new HttpGetter();
             getter.execute(TempDataClass.BASE_URL + "Request/GetRequestDetails?id=" + notificationRequestId);
-            //TODO
         }
 
         sendResponseButton.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +222,13 @@ public class RequestDisplayActivity extends Fragment {
             request.RequestUserProfilePhotoServerPath = currentJsonObject.getString("RequestUserProfilePhotoServerPath") != null ? currentJsonObject.getString("RequestUserProfilePhotoServerPath"): null;
             request.ImagePath = currentJsonObject.getString("RequestImageUrl") != null ? currentJsonObject.getString("RequestImageUrl"): null;
 
+            String isActive = currentJsonObject.getString("IsActive") != null ? currentJsonObject.getString("IsActive"): null;
+
+            if(isActive != null && !isActive.equals("True")){
+                sendResponseButton.setEnabled(false);
+                sendResponseButton.setText("Request Inactive");
+            }
+
             return request;
         }
         catch(Exception e){
@@ -227,20 +238,6 @@ public class RequestDisplayActivity extends Fragment {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void SendResponse(View v){
         LayoutInflater li = LayoutInflater.from(getActivity().getApplicationContext());
@@ -352,5 +349,4 @@ public class RequestDisplayActivity extends Fragment {
         inputStream.close();
         return result;
     }
-
 }

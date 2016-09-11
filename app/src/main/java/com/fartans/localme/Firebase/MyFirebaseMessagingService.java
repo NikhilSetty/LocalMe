@@ -130,7 +130,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendNotification(String messageBody) {
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo_notif);
+        // Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.logo_notif);
 
 
         if (intType == 2) {
@@ -152,7 +152,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(R.drawable.logo_notif)
-                            .setLargeIcon(bitmap)
                             .setContentTitle("New Answer")
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(repliedby + " says " + replymessage))
@@ -172,7 +171,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(R.drawable.logo_notif)
-                            .setLargeIcon(bitmap)
                             .setContentTitle("New Request")
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(username + " : " + message))
@@ -199,7 +197,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     new NotificationCompat.Builder(this)
                             .setSmallIcon(R.drawable.logo_notif)
                             .setContentTitle("New Response")
-                            .setLargeIcon(bitmap)
                             .setStyle(new NotificationCompat.BigTextStyle()
                                     .bigText(username + " : " + message))
                             .setContentText(username + " : " + message)
@@ -247,7 +244,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Notification mBuilder =
                     new NotificationCompat.Builder(getApplicationContext())
                             .setSmallIcon(R.drawable.logo_notif)
-                            .setLargeIcon(bitmap)
                             .setContentTitle("Chat Notification")
                             .setContentIntent(pendingIntent)
                             .setStyle(new NotificationCompat.BigTextStyle()

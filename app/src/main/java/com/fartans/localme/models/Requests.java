@@ -34,6 +34,8 @@ public class Requests {
     @JsonProperty("RequestImageUrl")
     public String ImagePath;
 
+    @JsonProperty("IsActive")
+    public Boolean IsActive;
 
     public int requestYear;
     public int requestDayOfTheYear;

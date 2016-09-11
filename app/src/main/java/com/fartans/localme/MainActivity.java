@@ -334,8 +334,8 @@ public class MainActivity extends ActionBarActivity
 
         mNavigationDrawerFragment.CloseDrawer();*/
 
-        Intent i = new Intent(this, UpdateUserDetailsActivity.class);
-        startActivity(i);
+        /*Intent i = new Intent(this, UpdateUserDetailsActivity.class);
+        startActivity(i);*/
     }
 
     public void ChangePassword(View v){

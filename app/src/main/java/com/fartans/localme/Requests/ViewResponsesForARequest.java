@@ -10,8 +10,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +25,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fartans.localme.DBHandlers.RequestsDBHandler;
 import com.fartans.localme.FragmentTitles;
 import com.fartans.localme.MainActivity;
 import com.fartans.localme.R;
@@ -64,6 +69,8 @@ public class ViewResponsesForARequest extends Fragment {
     RelativeLayout listViewLayout;
     RelativeLayout errorLayout;
 
+    AlertDialog alertDialog;
+
     public ViewResponsesForARequest() {
         // Required empty public constructor
     }
@@ -71,6 +78,7 @@ public class ViewResponsesForARequest extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
 
         activity = (FragmentActivity) super.getActivity();
         RelativeLayout layout = (RelativeLayout) inflater.inflate(R.layout.fragment_view_responses_for_arequest, container, false);
@@ -183,6 +191,52 @@ public class ViewResponsesForARequest extends Fragment {
         }
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_request_display, menu);  // Use filter.xml from step 1
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if(id == R.id.action_mark_as_inactive){
+
+            alertDialog = new AlertDialog.Builder(getActivity()).create();
+            alertDialog.setTitle("Mark Request as Inactive");
+            alertDialog.setMessage("Are you sure you want to mark this request as inactive?");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            progressDialog = new ProgressDialog(getActivity());
+                            progressDialog.setCancelable(false);
+                            progressDialog.setIndeterminate(true);
+                            progressDialog.setTitle("Deactivating Request!");
+                            progressDialog.show();
+                            MarkRequestAsInactive inactive = new MarkRequestAsInactive();
+                            inactive.execute(TempDataClass.BASE_URL + "Request/DeactivateRequest?id=" + currentRequest.RequestID);
+                        }
+                    });
+            alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "No",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            alertDialog.show();
+        }
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     private void populateListView(List<Responses> list) {
 
         final Responses[] responsesArray = new Responses[list.size()];
@@ -291,4 +345,70 @@ public class ViewResponsesForARequest extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while((line = bufferedReader.readLine()) != null)
+            result += line;
+
+        inputStream.close();
+        return result;
+    }
+
+    private class MarkRequestAsInactive extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            // TODO Auto-generated method stub
+            StringBuilder builder = new StringBuilder();
+            HttpClient client = new DefaultHttpClient();
+            HttpGet httpGet = new HttpGet(urls[0]);
+            String line = "";
+            RequestsDBHandler.DeleteRequest(activity, Integer.parseInt(currentRequest.RequestID) );
+
+            try {
+                HttpResponse response = client.execute(httpGet);
+                StatusLine statusLine = response.getStatusLine();
+                int statusCode = statusLine.getStatusCode();
+                if (statusCode == 200) {
+                    HttpEntity entity = response.getEntity();
+                    InputStream content = entity.getContent();
+                    BufferedReader reader = new BufferedReader(
+                            new InputStreamReader(content));
+
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line);
+                    }
+                    Log.v("Getter", "Your data: " + builder.toString()); //response data
+                } else {
+                    Log.e("Getter", "Failed to get data");
+                }
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return builder.toString();
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(result != null && !result.isEmpty()) {
+                if(!(TempDataClass.fragmentStack.size() == 0)) {
+                    FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    ft.replace(R.id.container, TempDataClass.fragmentStack.lastElement());
+                    TempDataClass.fragmentStack.pop();
+                    ft.commit();
+                    alertDialog.dismiss();
+                    progressDialog.dismiss();
+                }
+                else{
+                    activity.finish();
+                }
+            }
+        }
+    }
 }
