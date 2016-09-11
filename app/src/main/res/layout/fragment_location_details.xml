@@ -44,6 +44,10 @@
             android:inputType="number"
             android:padding="10dp" />
 
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
         <RadioButton
             android:id="@+id/radioButtonMarkUserAsVendor"
             android:layout_width="wrap_content"
@@ -51,6 +55,8 @@
             android:layout_marginLeft="4dp"
             android:layout_marginTop="16dp"
             android:text="Register as vendor" />
+
+        </RadioGroup>
 
     </LinearLayout>
 

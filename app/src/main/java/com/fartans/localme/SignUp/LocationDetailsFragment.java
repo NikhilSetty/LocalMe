@@ -11,10 +11,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -73,6 +75,7 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
     InputStream inputStream;
 
     RadioButton radioButtonMarkUserAsVendor;
+    RadioGroup vendorGroup;
 
     public LocationDetailsFragment() {
         // Required empty public constructor
@@ -90,6 +93,21 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
         editTextPinCode1 = (EditText) layout.findViewById(R.id.editTextPinCode1);
 
         radioButtonMarkUserAsVendor = (RadioButton) layout.findViewById(R.id.radioButtonMarkUserAsVendor);
+        vendorGroup=(RadioGroup)layout.findViewById(R.id.radio_group);
+
+        View.OnTouchListener radioButtonOnTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (((RadioButton) v).isChecked()) {
+                    // If the button was already checked, uncheck them all
+                    vendorGroup.clearCheck();
+                    // Prevent the system from re-checking it
+                    return true;
+                }
+                return false;
+            }
+        };
+        radioButtonMarkUserAsVendor.setOnTouchListener(radioButtonOnTouchListener);
 
         return layout;
     }

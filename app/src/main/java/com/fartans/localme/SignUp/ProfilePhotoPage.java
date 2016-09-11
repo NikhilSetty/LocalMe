@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class ProfilePhotoPage extends Fragment implements onNextPressed{
 
     ImageView image;
     InputStream inputStream;
+    Button uploadImage;
 
     private static int RESULT_LOAD_IMAGE = 2;
     private final String FILEPATH = "FilePath";
@@ -56,10 +58,23 @@ public class ProfilePhotoPage extends Fragment implements onNextPressed{
 
         image = (ImageView) layout.findViewById(R.id.imageViewNewProfilePhoto);
         prefs = getActivity().getSharedPreferences("com.teachmate.teachmate", Context.MODE_PRIVATE);
+        uploadImage=(Button)layout.findViewById(R.id.buttonNewUploadImage);
 
         if(!NewSignUpActicity.userModel.profilePhotoLocalPath.isEmpty()){
             image.setImageBitmap(BitmapFactory.decodeFile(NewSignUpActicity.userModel.profilePhotoLocalPath));
         }
+
+        uploadImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                Intent i = new Intent(
+                        Intent.ACTION_PICK,
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+                startActivityForResult(i, 2);
+            }
+        });
 
         image.setOnClickListener(new View.OnClickListener(){
             @Override

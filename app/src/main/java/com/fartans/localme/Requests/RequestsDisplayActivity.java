@@ -548,7 +548,7 @@ public class RequestsDisplayActivity extends Fragment {
                 if (!result.equals("Empty")) {
                     List<Requests> list = GetObjectsFromResponse(result);
                     resumeList = list;
-                    if (list != null) {
+                    if (list != null && list.size()!=0) {
                         populateListView(list);
                     }
                     showProgress(false,null);
