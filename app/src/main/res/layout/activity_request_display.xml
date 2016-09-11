@@ -8,7 +8,9 @@
 
 <RelativeLayout
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:layout_above="@+id/buttonRespond"
+    android:layout_marginBottom="8dp">
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -97,18 +99,13 @@
 </RelativeLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Respond"
-        style="@style/button_text"
-        android:background="@drawable/styled_button"
+        android:background="@color/primary"
+        android:textColor="@color/white"
+        android:drawableRight="@drawable/arrow_right"
+        android:paddingRight="16dp"
         android:id="@+id/buttonRespond"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-
-
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

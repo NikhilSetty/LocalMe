@@ -71,6 +71,7 @@ public class MyRequests extends Fragment {
 
     private void populateListView(final Requests[] requestsArray) {
 
+
         listAdapter = new RequestsArrayAdapter(getActivity(), requestsArray);
         listViewRequests.setAdapter(listAdapter);
 

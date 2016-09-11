@@ -6,8 +6,10 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.fartans.localme.R;
@@ -21,7 +23,7 @@ import java.io.File;
  */
 public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
     private final Context context;
-    private final Requests[] values;
+    private Requests[] values;
 
     public RequestsArrayAdapter(Context context, Requests[] values) {
         super(context, R.layout.list_row_requests, values);
@@ -47,7 +49,7 @@ public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
         if(!values[position].RequestUserProfilePhotoServerPath.isEmpty() && values[position].RequestUserProfilePhotoServerPath != null){
             Picasso.with(context).load(values[position].RequestUserProfilePhotoServerPath).into(image);
         }
-        if(!values[position].ImagePath.isEmpty() && values[position].ImagePath!= null){
+        if(values[position].ImagePath!= null && !values[position].ImagePath.isEmpty()){
             if(values[position].ImagePath.contains("http")) {
                 Picasso.with(context).load(values[position].ImagePath).into(requestImage);
             }else{
@@ -63,6 +65,14 @@ public class RequestsArrayAdapter extends ArrayAdapter<Requests> {
         // Change the icon for Windows and iPhone
 
         return rowView;
+    }
+
+    public Requests[] getValues() {
+        return values;
+    }
+
+    public void setValues(Requests[] values) {
+        this.values = values;
     }
 
     public static Bitmap decodeSampledBitmap(String filePath, int reqWidth, int reqHeight) {

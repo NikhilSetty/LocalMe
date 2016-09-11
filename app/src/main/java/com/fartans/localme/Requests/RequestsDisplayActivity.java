@@ -283,7 +283,7 @@ public class RequestsDisplayActivity extends Fragment {
         //TODO
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_requests_display, menu);
@@ -303,7 +303,7 @@ public class RequestsDisplayActivity extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public void GenerateNewRequest() {
         RequestImagePath = "";
@@ -668,9 +668,7 @@ public class RequestsDisplayActivity extends Fragment {
     }
 
     private void AddToListView(List<Requests> list) {
-        for(int i = 0; i < list.size(); i++){
-            resumeList.add(list.get(i));
-        }
+        resumeList.addAll(list);
         final Requests[] requestsArray = new Requests[resumeList.size()];
         for(int i = 0; i < resumeList.size(); i++){
             requestsArray[i] = resumeList.get(i);
