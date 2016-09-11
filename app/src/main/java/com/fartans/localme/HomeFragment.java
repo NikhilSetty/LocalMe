@@ -87,6 +87,8 @@ public class HomeFragment extends Fragment {
 
     Requests newRequest;
 
+    Button buttonUploadImage;
+
     FragmentActivity activity;
 
     private static int RESULT_LOAD_IMAGE = 2;
@@ -245,7 +247,7 @@ public class HomeFragment extends Fragment {
 
         final Switch locationSwicth = (Switch) promptsView.findViewById(R.id.switch1);
 
-        final Button buttonUploadImage = (Button) promptsView.findViewById(R.id.buttonUploadImage);
+        buttonUploadImage = (Button) promptsView.findViewById(R.id.buttonUploadImage);
 
         buttonUploadImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,8 +262,10 @@ public class HomeFragment extends Fragment {
 
         final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setView(promptsView);
-        alertDialogBuilder.setMessage("Generate New Request!");
-        alertDialogBuilder.setPositiveButton("Yes",
+        //alertDialogBuilder.setMessage("Generate New Request!");
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View view=inflater.inflate(R.layout.custom_title_view, null);
+        alertDialogBuilder.setCustomTitle(view);        alertDialogBuilder.setPositiveButton("Yes",
                 new DialogInterface.OnClickListener() {
 
                     @Override
@@ -348,6 +352,11 @@ public class HomeFragment extends Fragment {
             int columnIndex = SelectedCursor.getColumnIndex(FilePathColumn[0]);
             String picturePath = SelectedCursor.getString(columnIndex);
             RequestImagePath = picturePath;
+            if(!TextUtils.isEmpty(RequestImagePath)){
+                buttonUploadImage.setText("Uploaded");
+                buttonUploadImage.setCompoundDrawablesWithIntrinsicBounds(0,0,R.drawable.tick,0);
+            }
+
             SelectedCursor.close();
 
             // image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
