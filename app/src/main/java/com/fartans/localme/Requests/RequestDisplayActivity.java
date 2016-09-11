@@ -239,6 +239,7 @@ public class RequestDisplayActivity extends Fragment {
     }
 
 
+
     public void SendResponse(View v){
         LayoutInflater li = LayoutInflater.from(getActivity().getApplicationContext());
         View promptsView = li.inflate(R.layout.alert_prompt_send_response, null);
