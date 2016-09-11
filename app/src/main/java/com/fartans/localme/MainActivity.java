@@ -21,7 +21,6 @@ import com.fartans.localme.DBHandlers.UserModelDBHandler;
 import com.fartans.localme.Profile.UpdateUserDetailsActivity;
 import com.fartans.localme.Requests.MyRequests;
 import com.fartans.localme.Requests.RequestDisplayActivity;
-import com.fartans.localme.Requests.RequestsDisplayActivity;
 import com.fartans.localme.Responses.ResponseDisplayActivity;
 import com.fartans.localme.enums.RequestType;
 import com.fartans.localme.models.DeviceInfoKeys;
