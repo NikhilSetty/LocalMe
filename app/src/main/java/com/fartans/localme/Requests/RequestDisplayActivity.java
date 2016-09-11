@@ -224,7 +224,7 @@ public class RequestDisplayActivity extends Fragment {
 
             String isActive = currentJsonObject.getString("IsActive") != null ? currentJsonObject.getString("IsActive"): null;
 
-            if(isActive != null && !isActive.equals("true")){
+            if(isActive != null && !isActive.equals("True")){
                 sendResponseButton.setEnabled(false);
                 sendResponseButton.setText("Request Inactive");
             }

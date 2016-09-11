@@ -259,7 +259,7 @@ public class RequestsDisplayActivity extends Fragment {
                 request.RequestUserProfilePhotoServerPath = temp.getString("RequestUserProfilePhotoServerPath") != null ? temp.getString("RequestUserProfilePhotoServerPath"): null;
                 request.ImagePath = temp.getString("RequestImageUrl") != null ? temp.getString("RequestImageUrl"): null;
                 String isActive = temp.getString("IsActive") != null ? temp.getString("IsActive"): null;
-                if(isActive != null && isActive.equals("true")){
+                if(isActive != null && isActive.equals("True")){
                     request.IsActive = true;
                     list.add(request);
                 }else{

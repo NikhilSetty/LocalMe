@@ -90,6 +90,8 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
         editTextPinCode1 = (EditText) layout.findViewById(R.id.editTextPinCode1);
 
         radioButtonMarkUserAsVendor = (RadioButton) layout.findViewById(R.id.radioButtonMarkUserAsVendor);
+        lattitude1 = 0;
+        longitude1 = 0;
 
         return layout;
     }
@@ -370,8 +372,16 @@ public class LocationDetailsFragment extends Fragment implements onNextPressed{
             jsonObject.put("Password", NewSignUpActicity.userModel.password);
             jsonObject.put("Address", _editTextAddress1);
             jsonObject.put("PinCode", _editTextPinCode1);
-            jsonObject.put("Latitude", 12.5 );
-            jsonObject.put("Longitude", 77.5);
+            if(lattitude1 == 0){
+                jsonObject.put("Latitude", 12.5 );
+            }else{
+                jsonObject.put("Latitude", lattitude1);
+            }
+            if(longitude1 == 0) {
+                jsonObject.put("Longitude", 77.5);
+            }else{
+                jsonObject.put("Longitude", longitude1);
+            }
             if(NewSignUpActicity.userModel.isVendor){
                 jsonObject.put("IsVendor", "true");
             }else{
