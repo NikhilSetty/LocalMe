@@ -300,12 +300,17 @@ public class MainTabHosts extends Fragment {
             newRequest.RequestString = newRequestString;
             if(isCurrentLocation){
                 jsonObject.put("IsCurrent", "true");
-                jsonObject.put("Latitude", TempDataClass.currentLattitude);
-                jsonObject.put("Longitude", TempDataClass.currentLongitude);
+                if(TempDataClass.currentLattitude.equals("") || TempDataClass.currentLongitude.equals("")){
+                    jsonObject.put("Latitude", 12.9670);
+                    jsonObject.put("Longitude", 77.5956);
+                }else{
+                    jsonObject.put("Latitude", TempDataClass.currentLattitude);
+                    jsonObject.put("Longitude", TempDataClass.currentLongitude);
+                }
             }
             else {
                 jsonObject.put("IsCurrent", "false");
-                jsonObject.put("Longitude", 0);
+                jsonObject.put("Latitude", 0);
                 jsonObject.put("Longitude", 0);
             }
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
